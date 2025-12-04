@@ -18,6 +18,18 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/health', healthRoutes);
+app.use('/poutre', (req, res) => {
+  res.send('Poutre endpoint is under construction.');
+}
+);
+
+app.use('/poutre/:id', (req, res) => {
+  // get id from params
+  const { id } = req.params;
+  console.log(id); 
+  res.send(id);
+}
+);
 
 // Root endpoint
 app.get('/', (req, res) => {

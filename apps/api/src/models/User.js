@@ -24,6 +24,14 @@ export const User = sequelize.define(
         isEmail: true,
       },
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+      validate: {
+        len: [60, 60],
+      },
+    },
     role: {
       type: DataTypes.STRING,
       defaultValue: 'user',

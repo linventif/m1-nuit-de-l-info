@@ -1,5 +1,3 @@
-
-
 function Home() {
   return (
     <div class="min-h-[80vh] flex flex-col items-center justify-center bg-gray-900 text-white font-mono">
@@ -23,7 +21,10 @@ function Home() {
               <h2 class="card-title text-2xl text-green-400 font-bold">Retro Snake</h2>
               <p class="text-gray-400 text-sm">Un magnifique jeu de snake</p>
               <div class="card-actions mt-4">
-                <a href="/games/snake" class="btn btn-primary btn-wide bg-gradient-to-r from-green-500 to-blue-500 border-none text-white font-bold hover:brightness-110">
+                <a
+                  href="/games/snake"
+                  class="btn btn-primary btn-wide bg-gradient-to-r from-green-500 to-blue-500 border-none text-white font-bold hover:brightness-110"
+                >
                   PLAY NOW
                 </a>
               </div>

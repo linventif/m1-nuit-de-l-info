@@ -37,6 +37,21 @@ export const User = sequelize.define(
     },
     pattern: {
       type: DataTypes.STRING,
+    salt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+      validate: {
+        len: [60, 60],
+      },
     },
     role: {
       type: DataTypes.STRING,

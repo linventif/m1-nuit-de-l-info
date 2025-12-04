@@ -20,7 +20,7 @@ function Navbar() {
             <A href="/users">Users</A>
           </li>
           <li>
-            <A href="/chat" class="btn btn-ghost text-lg">Chat</A>
+            <A href="/login">Login</A>
           </li>
         </ul>
       </div>

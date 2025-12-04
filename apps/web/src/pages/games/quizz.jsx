@@ -28,17 +28,17 @@ function Quizz() {
             setScore(score() + 1);
         }
 
-        // Wait a bit before moving to next question
-        setTimeout(() => {
-            const nextQuestion = currentQuestionIndex() + 1;
-            if (nextQuestion < shuffledQuestions().length) {
-                setCurrentQuestionIndex(nextQuestion);
-                setSelectedAnswer(null);
-                setIsCorrect(null);
-            } else {
-                setShowScore(true);
-            }
-        }, 1500);
+    };
+
+    const handleNextQuestion = () => {
+        const nextQuestion = currentQuestionIndex() + 1;
+        if (nextQuestion < shuffledQuestions().length) {
+            setCurrentQuestionIndex(nextQuestion);
+            setSelectedAnswer(null);
+            setIsCorrect(null);
+        } else {
+            setShowScore(true);
+        }
     };
 
     const restartGame = () => {
@@ -56,21 +56,21 @@ function Quizz() {
             <div class="max-w-2xl w-full bg-gray-800 rounded-xl shadow-2xl p-8 border border-purple-500">
                 <Show when={!showScore()} fallback={
                     <div class="text-center space-y-6 animate-fade-in">
-                        <h2 class="text-4xl font-bold text-purple-400">Quiz Completed!</h2>
+                        <h2 class="text-4xl font-bold text-purple-400">Quiz Terminé!</h2>
                         <div class="text-6xl font-black text-white mb-4">
                             {score()} / {shuffledQuestions().length}
                         </div>
                         <p class="text-gray-400 text-lg">
-                            {score() === shuffledQuestions().length ? 'Perfect Score! You are a NIRD expert!' :
-                                score() > shuffledQuestions().length / 2 ? 'Great job! Keep learning.' : 'Keep practicing!'}
+                            {score() === shuffledQuestions().length ? 'Un sans fautes! Tu es un expert NIRD!' :
+                                score() > shuffledQuestions().length / 2 ? 'Bien joué! Continue ton apprentissage.' : 'Challenge toi!'}
                         </p>
                         <button
                             onClick={restartGame}
                             class="btn btn-primary btn-lg w-full mt-8 bg-gradient-to-r from-purple-500 to-pink-600 border-none hover:scale-105 transition-transform"
                         >
-                            Play Again
+                            Rejouer
                         </button>
-                        <a href="/" class="btn btn-ghost w-full mt-2">Back to Menu</a>
+                        <a href="/" class="btn btn-ghost w-full mt-2">Retour au menu</a>
                     </div>
                 }>
                     <Show when={shuffledQuestions().length > 0}>
@@ -132,12 +132,18 @@ function Quizz() {
                                     {shuffledQuestions()[currentQuestionIndex()].explanation}
                                 </p>
                             </div>
+                            <button
+                                onClick={handleNextQuestion}
+                                class="btn btn-primary w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white border-none"
+                            >
+                                {currentQuestionIndex() + 1 === shuffledQuestions().length ? 'Fin du Quizz' : 'Prochaine Question'}
+                            </button>
                         </Show>
                     </Show>
                 </Show>
             </div>
         </div>
     );
-}
+};
 
 export default Quizz;

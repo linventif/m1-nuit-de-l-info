@@ -19,6 +19,9 @@ function Navbar() {
           <li>
             <A href="/users">Users</A>
           </li>
+          <li>
+            <A href="/login">Login</A>
+          </li>
         </ul>
       </div>
     </div>

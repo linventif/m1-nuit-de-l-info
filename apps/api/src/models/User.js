@@ -24,6 +24,20 @@ export const User = sequelize.define(
         isEmail: true,
       },
     },
+    pseudo: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+    },
+    score: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    pattern: {
+      type: DataTypes.STRING,
+    },
     role: {
       type: DataTypes.STRING,
       defaultValue: 'user',

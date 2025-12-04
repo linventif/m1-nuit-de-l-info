@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
+import User from './User.js';
 
 export const Score = sequelize.define(
   'Score',
@@ -12,6 +13,10 @@ export const Score = sequelize.define(
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: User,
+        key: 'id',
+      },
       validate: {
         notEmpty: true,
       },
@@ -35,5 +40,16 @@ export const Score = sequelize.define(
     timestamps: true,
   }
 );
+
+// Define relationships
+Score.belongsTo(User, { 
+  foreignKey: 'user_id',
+  as: 'user' 
+});
+
+User.hasMany(Score, { 
+  foreignKey: 'user_id',
+  as: 'scores' 
+});
 
 export default Score;

@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Users from './pages/Users';
+import Chat from './pages/Chat';
 
 function Layout(props) {
   return (
@@ -19,6 +20,7 @@ function Routes() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/users" component={Users} />
+      <Route path="/chat" component={Chat} />
     </Route>
   );
 }

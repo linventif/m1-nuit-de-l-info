@@ -19,6 +19,9 @@ function Navbar() {
           <li>
             <A href="/users">Users</A>
           </li>
+          <li>
+            <A href="/chat" class="btn btn-ghost text-lg">Chat</A>
+          </li>
         </ul>
       </div>
     </div>

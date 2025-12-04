@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { sequelize } from './config/database.js';
 import User from './models/User.js';
+import Score from './models/Score.js';
 import userRoutes from './routes/userRoutes.js';
 import healthRoutes from './routes/healthRoutes.js';
 

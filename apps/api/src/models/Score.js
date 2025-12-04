@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
 export const Score = sequelize.define(
-  'Scores',
+  'Score',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,7 +10,7 @@ export const Score = sequelize.define(
       autoIncrement: true,
     },
     user_id: {
-      type: User.id,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: true,

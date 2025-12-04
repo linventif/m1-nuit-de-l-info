@@ -34,22 +34,31 @@ function ChatWidget() {
         setMessages((prev) => [...prev, userMsg]);
         setText('');
         scrollToBottom();
+        queueMicrotask(() => {
+            if (inputRef) inputRef.focus();
+        });
 
         try {
-            const res = await fetch('https://YOUR_N8N_WEBHOOK_URL', {
+            const res = await fetch('https://AdamGotAnApple-chen-n8n.hf.space/webhook/chatbotXXX', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: value }),
             });
-            const data = await res.json().catch(() => ({ reply: 'Échec de l\'analyse de la réponse' }));
-            const replyText = data?.reply ?? 'L\'assistant n\'a pas retourné de contenu';
+            const replyTextRaw = await res.text().catch(() => '');
+            const replyText = replyTextRaw || 'L\'assistant n\'a pas retourné de contenu';
             const assistantMsg = { id: Date.now() + 1, role: 'assistant', text: replyText };
             setMessages((prev) => [...prev, assistantMsg]);
             scrollToBottom();
+            queueMicrotask(() => {
+                if (inputRef) inputRef.focus();
+            });
         } catch (err) {
             const assistantMsg = { id: Date.now() + 2, role: 'assistant', text: `Échec de la requête : ${err?.message || 'Erreur inconnue'}` };
             setMessages((prev) => [...prev, assistantMsg]);
             scrollToBottom();
+            queueMicrotask(() => {
+                if (inputRef) inputRef.focus();
+            });
         }
     };
 

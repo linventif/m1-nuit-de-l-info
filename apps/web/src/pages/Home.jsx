@@ -8,8 +8,8 @@ function Home() {
       <div class="hero-content text-center">
         <div class="max-w-md">
           <h1 class="text-5xl font-bold">Welcome to Nuit de l'Info!</h1>
-          <p class="py-6">
-            This is a monorepo project built with Turbo, Bun, SolidJS, and
+          <p class="py-6" >
+            This is a mokefuhreyfkuerhfknorepo project built with Turbo, Bun, SolidJS, and
             Express. Click the button to test SolidJS reactivity!
           </p>
           <div class="card bg-base-100 shadow-xl">

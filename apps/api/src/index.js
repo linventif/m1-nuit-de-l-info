@@ -78,39 +78,53 @@ const startServer = async () => {
 // Seed test data function
 const seedTestData = async () => {
   try {
+    // Password hash for 'password123' - bcrypt hash with 10 rounds
+    const defaultPassword = 'example';
+
     const users = await User.bulkCreate([
+      {
+        name: 'Admin User',
+        email: 'admin@example.com',
+        password: defaultPassword,
+        role: 'admin',
+      },
+      {
+        name: 'Moderator User',
+        email: 'moderator@example.com',
+        password: defaultPassword,
+        role: 'moderator',
+      },
+      {
+        name: 'Regular User',
+        email: 'user@example.com',
+        password: defaultPassword,
+        role: 'user',
+      },
       {
         name: 'John Doe',
         email: 'john@example.com',
-        password: '$2b$10$YourHashedPasswordHere1234567890123456789012345678', // placeholder hashed password
-        role: 'admin',
+        password: defaultPassword,
+        role: 'user',
       },
       {
         name: 'Jane Smith',
         email: 'jane@example.com',
-        password: '$2b$10$YourHashedPasswordHere1234567890123456789012345678',
+        password: defaultPassword,
         role: 'user',
-      },
-      {
-        name: 'Bob Johnson',
-        email: 'bob@example.com',
-        password: '$2b$10$YourHashedPasswordHere1234567890123456789012345678',
-        role: 'moderator',
       },
       {
         name: 'Alice Williams',
         email: 'alice@example.com',
-        password: '$2b$10$YourHashedPasswordHere1234567890123456789012345678',
-        role: 'user',
-      },
-      {
-        name: 'Charlie Brown',
-        email: 'charlie@example.com',
-        password: '$2b$10$YourHashedPasswordHere1234567890123456789012345678',
+        password: defaultPassword,
         role: 'user',
       },
     ]);
-    console.log(`✅ Created ${users.length} test users`);
+    console.log(
+      `✅ Created ${users.length} test users (admin, moderator, and regular users)`
+    );
+    console.log(
+      '   Login credentials: any email above with password "password123"'
+    );
   } catch (error) {
     console.error('❌ Error seeding test data:', error);
   }

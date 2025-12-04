@@ -42,14 +42,14 @@ export const Score = sequelize.define(
 );
 
 // Define relationships
-Score.belongsTo(User, { 
+Score.belongsTo(User, {
   foreignKey: 'user_id',
-  as: 'user' 
+  as: 'user',
 });
 
-User.hasMany(Score, { 
+User.hasMany(Score, {
   foreignKey: 'user_id',
-  as: 'scores' 
+  as: 'scores',
 });
 
 export default Score;

@@ -1,5 +1,3 @@
-
-
 function Home() {
   return (
     <div class="min-h-[80vh] flex flex-col items-center justify-center bg-gray-900 text-white font-mono">
@@ -20,10 +18,17 @@ function Home() {
               </div>
             </figure>
             <div class="card-body items-center text-center">
-              <h2 class="card-title text-2xl text-green-400 font-bold">Retro Snake</h2>
-              <p class="text-gray-400 text-sm">Classic snake gameplay. Eat and grow!</p>
+              <h2 class="card-title text-2xl text-green-400 font-bold">
+                Retro Snake
+              </h2>
+              <p class="text-gray-400 text-sm">
+                Classic snake gameplay. Eat and grow!
+              </p>
               <div class="card-actions mt-4">
-                <a href="/games/snake" class="btn btn-primary btn-wide bg-gradient-to-r from-green-500 to-blue-500 border-none text-white font-bold hover:brightness-110">
+                <a
+                  href="/games/snake"
+                  class="btn btn-primary btn-wide bg-gradient-to-r from-green-500 to-blue-500 border-none text-white font-bold hover:brightness-110"
+                >
                   PLAY NOW
                 </a>
               </div>
@@ -38,10 +43,17 @@ function Home() {
               </div>
             </figure>
             <div class="card-body items-center text-center">
-              <h2 class="card-title text-2xl text-yellow-400 font-bold">Neon Pong</h2>
-              <p class="text-gray-400 text-sm">Defeat the AI in this neon classic.</p>
+              <h2 class="card-title text-2xl text-yellow-400 font-bold">
+                Neon Pong
+              </h2>
+              <p class="text-gray-400 text-sm">
+                Defeat the AI in this neon classic.
+              </p>
               <div class="card-actions mt-4">
-                <a href="/games/pong" class="btn btn-primary btn-wide bg-gradient-to-r from-yellow-500 to-red-500 border-none text-white font-bold hover:brightness-110">
+                <a
+                  href="/games/pong"
+                  class="btn btn-primary btn-wide bg-gradient-to-r from-yellow-500 to-red-500 border-none text-white font-bold hover:brightness-110"
+                >
                   PLAY NOW
                 </a>
               </div>
@@ -56,10 +68,17 @@ function Home() {
               </div>
             </figure>
             <div class="card-body items-center text-center">
-              <h2 class="card-title text-2xl text-pink-400 font-bold">Space Invaders</h2>
-              <p class="text-gray-400 text-sm">Defend Earth from alien invasion.</p>
+              <h2 class="card-title text-2xl text-pink-400 font-bold">
+                Space Invaders
+              </h2>
+              <p class="text-gray-400 text-sm">
+                Defend Earth from alien invasion.
+              </p>
               <div class="card-actions mt-4">
-                <a href="/games/invaders" class="btn btn-primary btn-wide bg-gradient-to-r from-pink-500 to-purple-600 border-none text-white font-bold hover:brightness-110">
+                <a
+                  href="/games/invaders"
+                  class="btn btn-primary btn-wide bg-gradient-to-r from-pink-500 to-purple-600 border-none text-white font-bold hover:brightness-110"
+                >
                   PLAY NOW
                 </a>
               </div>

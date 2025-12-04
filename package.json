@@ -15,11 +15,17 @@
   },
   "devDependencies": {
     "turbo": "^2.2.3",
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "@types/bun": "latest"
   },
   "packageManager": "bun@1.1.38",
   "engines": {
     "node": ">=18.0.0",
     "bun": ">=1.0.0"
+  },
+  "module": "index.ts",
+  "type": "module",
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }

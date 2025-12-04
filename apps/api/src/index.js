@@ -6,6 +6,7 @@ import User from './models/User.js';
 import Score from './models/Score.js';
 import userRoutes from './routes/userRoutes.js';
 import healthRoutes from './routes/healthRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -18,18 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/health', healthRoutes);
-app.use('/poutre', (req, res) => {
-  res.send('Poutre endpoint is under construction.');
-});
-
-app.use('/poutre/:id', (req, res) => {
-  // get id from params
-  const { id } = req.params;
-  console.log(id);
-  res.send(id);
-});
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -38,6 +30,7 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       health: '/health',
+      auth: '/api/auth',
       users: '/api/users',
     },
   });
@@ -78,44 +71,70 @@ const startServer = async () => {
 // Seed test data function
 const seedTestData = async () => {
   try {
-    // Password hash for 'password123' - bcrypt hash with 10 rounds
-    const defaultPassword = 'example';
+    const bcrypt = (await import('bcrypt')).default;
+    const defaultPassword = 'password123';
+    const saltRounds = 10;
+
+    // Hash passwords for test users
+    const adminSalt = await bcrypt.genSalt(saltRounds);
+    const adminPassword = await bcrypt.hash(defaultPassword, adminSalt);
+
+    const moderatorSalt = await bcrypt.genSalt(saltRounds);
+    const moderatorPassword = await bcrypt.hash(defaultPassword, moderatorSalt);
+
+    const user1Salt = await bcrypt.genSalt(saltRounds);
+    const user1Password = await bcrypt.hash(defaultPassword, user1Salt);
+
+    const user2Salt = await bcrypt.genSalt(saltRounds);
+    const user2Password = await bcrypt.hash(defaultPassword, user2Salt);
+
+    const user3Salt = await bcrypt.genSalt(saltRounds);
+    const user3Password = await bcrypt.hash(defaultPassword, user3Salt);
+
+    const user4Salt = await bcrypt.genSalt(saltRounds);
+    const user4Password = await bcrypt.hash(defaultPassword, user4Salt);
 
     const users = await User.bulkCreate([
       {
         name: 'Admin User',
         email: 'admin@example.com',
-        password: defaultPassword,
+        salt: adminSalt,
+        password: adminPassword,
         role: 'admin',
       },
       {
         name: 'Moderator User',
         email: 'moderator@example.com',
-        password: defaultPassword,
+        salt: moderatorSalt,
+        password: moderatorPassword,
         role: 'moderator',
       },
       {
         name: 'Regular User',
         email: 'user@example.com',
-        password: defaultPassword,
+        salt: user1Salt,
+        password: user1Password,
         role: 'user',
       },
       {
         name: 'John Doe',
         email: 'john@example.com',
-        password: defaultPassword,
+        salt: user2Salt,
+        password: user2Password,
         role: 'user',
       },
       {
         name: 'Jane Smith',
         email: 'jane@example.com',
-        password: defaultPassword,
+        salt: user3Salt,
+        password: user3Password,
         role: 'user',
       },
       {
         name: 'Alice Williams',
         email: 'alice@example.com',
-        password: defaultPassword,
+        salt: user4Salt,
+        password: user4Password,
         role: 'user',
       },
     ]);
@@ -123,7 +142,7 @@ const seedTestData = async () => {
       `✅ Created ${users.length} test users (admin, moderator, and regular users)`
     );
     console.log(
-      '   Login credentials: any email above with password "password123"'
+      `   Login credentials: any email above with password "${defaultPassword}"`
     );
   } catch (error) {
     console.error('❌ Error seeding test data:', error);

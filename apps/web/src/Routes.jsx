@@ -4,6 +4,7 @@ import ChatWidget from './components/ChatWidget';
 import Home from './pages/Home';
 import About from './pages/About';
 import Users from './pages/Users';
+import Login from './pages/Login';
 
 
 function Layout(props) {
@@ -22,6 +23,7 @@ function Routes() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/users" component={Users} />
+      <Route path="/login" component={Login} />
 
     </Route>
   );

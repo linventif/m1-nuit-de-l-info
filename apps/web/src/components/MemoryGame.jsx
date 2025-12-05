@@ -71,7 +71,38 @@ export default function NirdMemoryGame() {
   const [scoreSent, setScoreSent] = createSignal(false);
   const [previousScore, setPreviousScore] = createSignal(null);
 
-    onMount(() => {
+  onMount(() => {
+    (async () => {
+        try {
+        // 1. Récupération de l'utilisateur connecté
+        const resUser = await fetch("http://localhost:3001/api/auth/me", {
+            credentials: "include", // IMPORTANT pour cookies / sessions
+        });
+
+        if (!resUser.ok) throw new Error("Utilisateur non connecté");
+
+        
+        const userData = await resUser.json();
+        console.log(userData)
+        setUser(userData);
+
+        // 2. Récupération du meilleur score du joueur
+        const resScore = await fetch(
+            `http://localhost:3001/api/nird-memory-score/${userData.id}`,
+            {
+            credentials: "include",
+            }
+        );
+
+        if (resScore.ok) {
+            const scoreData = await resScore.json();
+            setPreviousScore(scoreData.bestScore);
+        }
+
+        } catch (error) {
+        console.warn("Mode invité ou problème de connexion :", error);
+        }
+    })();
     const savedScore = localStorage.getItem("nird-memory-score");
     if (savedScore) {
       setPreviousScore(Number(savedScore));

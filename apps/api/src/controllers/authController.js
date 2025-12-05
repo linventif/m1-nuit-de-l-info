@@ -120,6 +120,24 @@ export const login = async (req, res) => {
 };
 
 /**
+ * Logout user
+ * Note: With JWT, logout is primarily handled client-side by removing the token.
+ * This endpoint provides a way to explicitly log out and can be used for logging purposes.
+ */
+export const logout = async (req, res) => {
+  try {
+    // On sait qui se déconnecte grâce à req.user
+    console.log(`User ${req.user.id} (${req.user.email}) logged out`);
+    
+    res.json({
+      message: 'Logout successful',
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+/**
  * Get current user (protected route)
  */
 export const getCurrentUser = async (req, res) => {

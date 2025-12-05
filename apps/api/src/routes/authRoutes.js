@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, getCurrentUser } from '../controllers/authController.js';
+import { register, login, logout, getCurrentUser } from '../controllers/authController.js';
 import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -17,6 +17,13 @@ router.post('/register', register);
  * @access  Public
  */
 router.post('/login', login);
+
+/**
+ * @route   POST /api/auth/logout
+ * @desc    Logout user
+ * @access  Public
+ */
+router.post('/logout', authenticateToken, logout);
 
 /**
  * @route   GET /api/auth/me

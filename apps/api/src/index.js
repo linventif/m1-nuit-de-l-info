@@ -7,7 +7,7 @@ import Score from './models/Score.js';
 import userRoutes from './routes/userRoutes.js';
 import healthRoutes from './routes/healthRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-
+import scoreRoutes from './routes/scoreRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/scores', scoreRoutes);
 app.use('/health', healthRoutes);
   
 // Root endpoint

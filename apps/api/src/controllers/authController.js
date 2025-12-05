@@ -182,3 +182,50 @@ export const getCurrentUser = async (req, res) => {
   }
 };
 
+/**
+ * Add or update password for a specific game type
+ */
+export const updateGamePassword = async (req, res) => {
+  try {
+    const { gameType } = req.params;
+    const { password } = req.body;
+    const userId = req.user.id; // Depuis le token JWT
+
+    // Validation
+    if (!gameType || !password) {
+      return res.status(400).json({ error: 'gameType and password are required' });
+    }
+
+    // Find user
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Récupérer l'objet password actuel
+    let passwordObject = typeof user.password === 'string' 
+      ? { classic: user.password } // Si ancien format string
+      : { ...user.password };       // Si déjà JSON
+
+    // Vérifier si le mot de passe existe déjà pour ce gameType
+    const passwordExists = passwordObject.hasOwnProperty(gameType);
+
+    // Hash le nouveau mot de passe
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(saltRounds));
+    
+    // Ajouter ou modifier le mot de passe pour ce type de jeu
+    passwordObject[gameType] = hashedPassword;
+
+    // Sauvegarder
+    await user.update({ password: passwordObject });
+
+    res.json({
+      message: `Password for ${gameType} ${passwordExists ? 'updated' : 'added'} successfully`,
+      gameType,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+

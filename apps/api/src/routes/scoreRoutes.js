@@ -28,4 +28,5 @@ router.get('/:id', getScoreByUserId);
  */
 router.post('/:id', addScorebyUserId);
 
+export default router;
 

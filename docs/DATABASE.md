@@ -40,16 +40,17 @@ DB_PASSWORD=password
 
 **Schema:**
 
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| id | INTEGER | PRIMARY KEY, AUTO_INCREMENT | Unique user identifier |
-| name | VARCHAR(255) | NOT NULL | User's full name |
-| email | VARCHAR(255) | NOT NULL, UNIQUE | User's email address |
-| role | VARCHAR(255) | DEFAULT 'user' | User role (user, admin, moderator) |
-| createdAt | DATETIME | NOT NULL | Record creation timestamp |
-| updatedAt | DATETIME | NOT NULL | Record last update timestamp |
+| Column    | Type         | Constraints                 | Description                        |
+| --------- | ------------ | --------------------------- | ---------------------------------- |
+| id        | INTEGER      | PRIMARY KEY, AUTO_INCREMENT | Unique user identifier             |
+| name      | VARCHAR(255) | NOT NULL                    | User's full name                   |
+| email     | VARCHAR(255) | NOT NULL, UNIQUE            | User's email address               |
+| role      | VARCHAR(255) | DEFAULT 'user'              | User role (user, admin, moderator) |
+| createdAt | DATETIME     | NOT NULL                    | Record creation timestamp          |
+| updatedAt | DATETIME     | NOT NULL                    | Record last update timestamp       |
 
 **Indexes:**
+
 - Primary Key: `id`
 - Unique Index: `email`
 
@@ -122,17 +123,6 @@ npx sequelize-cli db:migrate
 
 # Undo migration
 npx sequelize-cli db:migrate:undo
-```
-
-## 🌱 Seed Data
-
-Initial data is created via `init.sql`:
-
-```sql
-INSERT INTO `users` (`name`, `email`, `role`, `createdAt`, `updatedAt`) VALUES
-('John Doe', 'john@example.com', 'admin', NOW(), NOW()),
-('Jane Smith', 'jane@example.com', 'user', NOW(), NOW()),
-('Bob Johnson', 'bob@example.com', 'moderator', NOW(), NOW());
 ```
 
 ## 📝 Adding New Models
@@ -281,24 +271,23 @@ import { Op } from 'sequelize';
 
 const users = await User.findAll({
   where: {
-    [Op.or]: [
-      { role: 'admin' },
-      { role: 'moderator' }
-    ]
-  }
+    [Op.or]: [{ role: 'admin' }, { role: 'moderator' }],
+  },
 });
 
 // With includes (joins)
 const users = await User.findAll({
-  include: [{
-    model: Post,
-    as: 'posts'
-  }]
+  include: [
+    {
+      model: Post,
+      as: 'posts',
+    },
+  ],
 });
 
 // With ordering
 const users = await User.findAll({
-  order: [['createdAt', 'DESC']]
+  order: [['createdAt', 'DESC']],
 });
 ```
 
@@ -317,10 +306,7 @@ const user = await User.create({
 ### Update
 
 ```javascript
-await User.update(
-  { role: 'admin' },
-  { where: { id: 1 } }
-);
+await User.update({ role: 'admin' }, { where: { id: 1 } });
 
 // Or on instance
 const user = await User.findByPk(1);
@@ -332,7 +318,7 @@ await user.save();
 
 ```javascript
 await User.destroy({
-  where: { id: 1 }
+  where: { id: 1 },
 });
 
 // Or on instance

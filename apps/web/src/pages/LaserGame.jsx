@@ -4,7 +4,7 @@ import { createSignal, onMount, onCleanup, For, Show } from 'solid-js';
 const PLAYER_SIZE = 20;
 const BULLET_SPEED = 30;
 const ENEMY_SPEED = 5;
-const SPAWN_RATE = 400; //ms
+const SPAWN_RATE = 300; //ms
 
 function LaserGame() {
   // --- ETAT DU JEU ---

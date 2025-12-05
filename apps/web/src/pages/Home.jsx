@@ -32,7 +32,25 @@ function Home() {
           </div>
 
           {/* Game Card 2 */}
-<div class="card w-80 bg-gray-800 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer relative overflow-hidden">
+          <div class="card w-80 bg-gray-800 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer">
+            <figure class="px-10 pt-10">
+              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
+                👾
+              </div>
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title text-2xl text-pink-400 font-bold">Space Invaders</h2>
+              <p class="text-gray-400 text-sm">Defend Earth from alien invasion.</p>
+              <div class="card-actions mt-4">
+                <a href="/games/invaders" class="btn btn-primary btn-wide bg-gradient-to-r from-pink-500 to-purple-600 border-none text-white font-bold hover:brightness-110">
+                  PLAY NOW
+                </a>
+              </div>
+            </div>
+          </div>
+          
+                    {/* Game Card 3 */}
+          <div class="card w-80 bg-gray-800 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer relative overflow-hidden">
              {/* Petit effet visuel pour le mettre en avant */}
              <div class="absolute inset-0 bg-yellow-400/10 animate-pulse pointer-events-none"></div>
              
@@ -50,24 +68,6 @@ function Home() {
                 <A href="/laser-game" class="btn btn-primary btn-wide bg-gradient-to-r from-yellow-500 to-red-500 border-none text-white font-bold hover:brightness-110 shadow-[0_0_15px_rgba(255,165,0,0.5)]">
                   PLAY NOW
                 </A>
-              </div>
-            </div>
-          </div>
-
-          {/* Game Card 3 */}
-          <div class="card w-80 bg-gray-800 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer">
-            <figure class="px-10 pt-10">
-              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-pink-400 to-purple-600 flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
-                👾
-              </div>
-            </figure>
-            <div class="card-body items-center text-center">
-              <h2 class="card-title text-2xl text-pink-400 font-bold">Space Invaders</h2>
-              <p class="text-gray-400 text-sm">Defend Earth from alien invasion.</p>
-              <div class="card-actions mt-4">
-                <a href="/games/invaders" class="btn btn-primary btn-wide bg-gradient-to-r from-pink-500 to-purple-600 border-none text-white font-bold hover:brightness-110">
-                  PLAY NOW
-                </a>
               </div>
             </div>
           </div>

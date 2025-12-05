@@ -203,6 +203,37 @@ function Profile() {
     }
   };
 
+  // Fonction de déconnexion
+  const handleLogout = async () => {
+    try {
+      const token = getToken();
+      if (token) {
+        // Appeler l'endpoint logout (optionnel)
+        try {
+          await fetch(`${API_BASE_URL}/api/auth/logout`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+        } catch (err) {
+          console.error('Logout API error:', err);
+        }
+      }
+      
+      // Supprimer le token du localStorage
+      localStorage.removeItem('token');
+      
+      // Rediriger vers la page de login
+      navigate('/login');
+    } catch (err) {
+      console.error('Error during logout:', err);
+      // Même en cas d'erreur, supprimer le token et rediriger
+      localStorage.removeItem('token');
+      navigate('/login');
+    }
+  };
+
   onMount(() => {
     loadUser();
   });
@@ -233,7 +264,15 @@ function Profile() {
       {/* Informations utilisateur */}
       <div class="card bg-base-100 shadow-xl mb-6">
         <div class="card-body">
-          <h2 class="card-title text-2xl mb-4">Informations</h2>
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="card-title text-2xl">Informations</h2>
+            <button
+              class="btn btn-error btn-outline"
+              onClick={handleLogout}
+            >
+              Déconnexion
+            </button>
+          </div>
           <div class="space-y-2">
             <p><strong>Nom :</strong> {user()?.name}</p>
             <p><strong>Email :</strong> {user()?.email}</p>

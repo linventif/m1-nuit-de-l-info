@@ -3,7 +3,7 @@ import { createSignal, For, onMount } from 'solid-js';
 function ChatWidget() {
     const [isOpen, setIsOpen] = createSignal(false);
     const [messages, setMessages] = createSignal([
-        { id: 1, role: 'assistant', text: 'Bonjour ! Je suis Nuit Assistant, comment puis-je vous aider ?' },
+        { id: 1, role: 'assistant', text: 'Bon-bOn-boN-Bonjour ! Je suis Nuit Assistant, comment puis-je vous aider ? 🥳🤡👻' },
     ]);
     const [text, setText] = createSignal('');
     let inputRef;
@@ -30,6 +30,10 @@ function ChatWidget() {
         const value = text().trim();
         if (!value) return;
 
+        const history = messages()
+            .slice(-15)
+            .map((m) => ({ role: m.role, text: m.text }));
+
         const userMsg = { id: Date.now(), role: 'user', text: value };
         setMessages((prev) => [...prev, userMsg]);
         setText('');
@@ -39,10 +43,10 @@ function ChatWidget() {
         });
 
         try {
-            const res = await fetch('https://AdamGotAnApple-chen-n8n.hf.space/webhook/chatbotXXX', {
+            const res = await fetch('https://AdamGotAnApple-chen-n8n.hf.space/webhook/chatbotXXX_history', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: value }),
+                body: JSON.stringify({ history, message: value }),
             });
             const replyTextRaw = await res.text().catch(() => '');
             const replyText = replyTextRaw || 'L\'assistant n\'a pas retourné de contenu';

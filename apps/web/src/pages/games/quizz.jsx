@@ -26,8 +26,8 @@ function Quizz() {
         setIsCorrect(correct);
 
         if (correct) {
-            setScore(score() + 1);
             incrPts();
+            setScore(score() + 1);
         }
 
     };
@@ -55,26 +55,29 @@ function Quizz() {
     };
 
     const incrPts = () => {
-        fetch(config.apiBaseUrl + '/auth/login');
-
         fetch(config.apiBaseUrl + '/auth/me', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
             },
             credentials: 'include',
-        }).then(res => fetch(config.apiBaseUrl + '/scores', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-            },
-            credentials: 'include',
-            body: JSON.stringify({ score: score(), game_type: 'quizz' }),
-        })
+        }).then(res => res.json().then(
+            json => {
+                fetch(config.apiBaseUrl + '/scores/' + json.id).then(res => res.json().then(
+                    scoreJson => {
+                        if (score() > scoreJson.find (s => s.game_type === 'quizz')?.score || !scoreJson.find (s => s.game_type === 'quizz')) {
+                            fetch(config.apiBaseUrl + '/scores/' + json.id, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                            },
+                            credentials: 'include',
+                            body: JSON.stringify({ score: score(), game_type: 'quizz' }),
+                        })            }})
         )
-    }
+    }))}
 
     return (
         <div class="min-h-screen bg-base-200 flex flex-col items-center justify-center p-4 font-mono">

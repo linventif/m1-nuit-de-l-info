@@ -61,9 +61,14 @@ export const setScorebyUserId = async (req, res) => {
 
     let result;
     if (existingScore) {
-      // Mettre à jour le score existant
-      await existingScore.update({ score });
-      result = existingScore;
+      // Mettre à jour le score existant seulement si le nouveau score est supérieur
+      if (score > existingScore.score) {
+        await existingScore.update({ score });
+        result = existingScore;
+      } else {
+        // Le score actuel est meilleur, retourner celui-ci
+        result = existingScore;
+      }
     } else {
       // Créer un nouveau score si aucun n'existe
       result = await Score.create({ user_id, score, game_type });

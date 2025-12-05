@@ -1,5 +1,7 @@
 import { createSignal, onMount, onCleanup, For, Show } from 'solid-js';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 // --- CONFIGURATION ---
 const PLAYER_SIZE = 20;
 const BULLET_SPEED = 30;
@@ -267,6 +269,66 @@ const spawnEnemy = () => {
     gameLoopId = requestAnimationFrame(loop);
   };
 
+  // Fonction pour sauvegarder le score si supérieur
+  const saveScoreIfBetter = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.log('Pas de token, score non sauvegardé');
+        return;
+      }
+
+      // Récupérer l'ID de l'utilisateur
+      const userResponse = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!userResponse.ok) {
+        console.log('Utilisateur non authentifié, score non sauvegardé');
+        return;
+      }
+
+      const userData = await userResponse.json();
+      const userId = userData.id;
+      const currentScore = score();
+
+      // Récupérer le score actuel pour le jeu "laser"
+      const scoresResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`);
+      if (scoresResponse.ok) {
+        const scores = await scoresResponse.json();
+        const laserScore = scores.find((s) => s.game_type === 'laser');
+
+        // Si un score existe et qu'il est supérieur ou égal, ne pas sauvegarder
+        if (laserScore && laserScore.score >= currentScore) {
+          console.log(`Score actuel (${laserScore.score}) >= nouveau score (${currentScore}), non sauvegardé`);
+          return;
+        }
+      }
+
+      // Sauvegarder le score (créer ou mettre à jour)
+      const saveResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          score: currentScore,
+          game_type: 'laser',
+        }),
+      });
+
+      if (saveResponse.ok) {
+        console.log(`Score sauvegardé avec succès: ${currentScore}`);
+      } else {
+        console.error('Erreur lors de la sauvegarde du score');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde du score:', error);
+    }
+  };
+
   const endGame = () => {
 
     if (document.pointerLockElement === gameAreaRef) {
@@ -276,10 +338,14 @@ const spawnEnemy = () => {
     setGameState('gameover');
     clearInterval(spawnIntervalId);
     cancelAnimationFrame(gameLoopId);
+    
     // Sauvegarder score localement
     const newEntry = { name: "You", score: score() };
     const newLeaderboard = [...leaderboard(), newEntry].sort((a,b) => b.score - a.score);
     setLeaderboard(newLeaderboard);
+    
+    // Sauvegarder le score sur le serveur si supérieur
+    saveScoreIfBetter();
   };
   
 

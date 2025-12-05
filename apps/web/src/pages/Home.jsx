@@ -1,5 +1,6 @@
 import { createSignal} from "solid-js";
 import MemoryGame from "../components/MemoryGame";
+import { A } from '@solidjs/router';
 
 function Home() {
   const [showModal, setShowModal] = createSignal(false);
@@ -65,6 +66,29 @@ function Home() {
                 <a href="/games/laser" class="btn btn-primary btn-wide bg-gradient-to-r from-pink-500 to-purple-600 border-none text-white font-bold hover:brightness-110">
                   PLAY NOW
                 </a>
+              </div>
+            </div>
+          </div>
+          
+                    {/* Game Card 3 */}
+          <div class="card w-80 bg-gray-800 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer relative overflow-hidden">
+             {/* Petit effet visuel pour le mettre en avant */}
+             <div class="absolute inset-0 bg-yellow-400/10 animate-pulse pointer-events-none"></div>
+             
+            <figure class="px-10 pt-10">
+              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
+                🔫
+              </div>
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title text-2xl text-yellow-400 font-bold">Neon Laser Pong</h2>
+              {/* Description mise à jour pour le défi */}
+              <p class="text-gray-400 text-sm">Transformez votre souris en laser. Détruisez le DOM !</p>
+              <div class="card-actions mt-4">
+                {/* Lien vers notre route LaserGame */}
+                <A href="/laser-game" class="btn btn-primary btn-wide bg-gradient-to-r from-yellow-500 to-red-500 border-none text-white font-bold hover:brightness-110 shadow-[0_0_15px_rgba(255,165,0,0.5)]">
+                  PLAY NOW
+                </A>
               </div>
             </div>
           </div>

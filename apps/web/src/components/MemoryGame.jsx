@@ -10,25 +10,25 @@ const cardsData = [
 ];
 
 const team = [ 
-    { name: "Alice", role: "Dev Front"}, 
-    { name: "Bob", role: "Dev Back"}, 
-    { name: "Charlie", role: "Designer"}, 
-    { name: "David", role: "QA"}, 
-    { name: "Eve", role: "PM"}, 
-    { name: "Frank", role: "DevOps"}, 
-    { name: "Grace", role: "UX"}, 
-    { name: "Hugo", role: "Dev Front"}, 
-    { name: "Ivy", role: "Marketing"}, 
-    { name: "Jack", role: "Support"}, 
-    { name: "Kate", role: "Community"}, 
-    { name: "Leo", role: "Designer"}, 
+    { name: "Enzo", role: "Sneaky dev"}, 
+    { name: "Shifu", role: "Mascot"}, 
+    { name: "Robbe", role: "Frontend dev"}, 
+    { name: "Léa", role: "QA"}, 
+    { name: "Kepeng", role: "DevOps"}, 
+    { name: "Guilherme", role: "Login"}, 
+    { name: "Jimmy", role: "Login"}, 
+    { name: "Titouan", role: "PM"}, 
+    { name: "Grégoire", role: "DevOps"}, 
+    { name: "Samy", role: "Support"}, 
+    { name: "Guillaume", role: "Community"}, 
+    { name: "Zhengyi", role: "Designer"}, 
 ];
 
 function shuffle(array) {
   return array.concat(array).sort(() => Math.random() - 0.5); // dupliquer pour créer des paires
 }
 
-const BEST_MOVES = 8; // meilleur score possible
+const BEST_MOVES = 9; // meilleur score possible
 
 function calculateScore(moves) {
   if (moves <= BEST_MOVES) return 100; // parfait
@@ -125,12 +125,12 @@ export default function NirdMemoryGame() {
         setTimeout(() => {
           setFlipped([]);
           setLock(false);
-        }, 500);
+        }, 300);
       } else {
         setTimeout(() => {
           setFlipped([]);
           setLock(false);
-        }, 1000);
+        }, 500);
       }
     }
   };
@@ -141,6 +141,7 @@ export default function NirdMemoryGame() {
     setMatched([]);
     setMoves(0);
     setLock(false);
+    setScoreSent(false);
   };
 
   createEffect(() => {
@@ -176,7 +177,7 @@ export default function NirdMemoryGame() {
           return (
             <div
               class={`card card-compact w-48 h-32 cursor-pointer shadow-lg transition-transform duration-300 transform ${
-                isFlipped ? "bg-base-100 scale-105" : "bg-neutral"
+                isFlipped ? "bg-base-100 scale-105" : "bg-accent"
               } flex flex-col items-center justify-center p-2 text-center`}
               onClick={() => flipCard(index)}
             >
@@ -188,7 +189,7 @@ export default function NirdMemoryGame() {
                 </>
               ) : (
                 <>
-                    <span class="text-xl">{team[index].name}</span>
+                    <span class="text-xl font-bold">{team[index].name}</span>
                     <p>{team[index].role}</p>
                 </>
               )}

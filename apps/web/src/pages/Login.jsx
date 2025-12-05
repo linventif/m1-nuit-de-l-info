@@ -68,8 +68,8 @@ else if (isGame1Active()) {
 
   if (order.length === 0) {
     // Aucun pattern : on garde le mot de passe classique (gameType reste "classic")
-  } else if (order.length <= 6) {
-    alert("Veuillez sélectionner au moins 7 cercles pour le motif de connexion.");
+  } else if (order.length <= 9) {
+    alert("Veuillez sélectionner au moins 10 cercles pour le motif de connexion.");
     // Si tu veux recharger la page comme dans l'autre version :
     // location.reload();
     return;
@@ -129,16 +129,24 @@ console.log("Données de connexion:", loginData);
             />
           </div>
           <hr class="my-4" />
-          <div class="flex justify-center mb-4">
+          <div class="flex justify-center gap-4 mb-4">
             <div
               class="w-10 h-10 bg-neutral cursor-pointer rounded"
               onClick={toggleGame1}
-            ></div>
+            >
+              <img src="/public/color_code.png" alt="Image" class="w-10 h-10" />
+            </div>
+            <div
+              class="w-10 h-10 bg-neutral cursor-pointer rounded"
+              onClick={toggleGame2}
+            >
+              <img src="/public/biometric_image.png" alt="Image" class="w-10 h-10" />
+            </div>
           </div>
           {isGame1Active() && (
             <div class="flex flex-col items-center">
               <div class="mb-2 font-bold text-neutral">
-                Cercles sélectionnés: {clickedOrder().length}
+                Cercles sélectionnés: {clickedOrder().length} /10
               </div>
 
               <div class="grid grid-cols-3 gap-4 mt-2 w-max mx-auto">
@@ -155,15 +163,6 @@ console.log("Données de connexion:", loginData);
               </div>
             </div>
           )}
-
-        <div class="flex justify-center mb-4">
-            <div
-              class="w-10 h-10 bg-neutral cursor-pointer rounded"
-              onClick={toggleGame2}
-            >
-                <img src="/public/biometric_image.png" alt="Image" class="w-10 h-10" />
-            </div>
-          </div>
           {isGame2Active() && (
             <div class="flex flex-col items-center">
               <div class="mb-2 font-bold text-neutral">

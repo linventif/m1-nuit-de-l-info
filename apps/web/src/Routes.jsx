@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Register from './pages/Register';
 import LaserGame from './pages/LaserGame';
 import SnakeApp from './pages/SnakeApp';
+import Profile from './pages/Profile';
 
 
 function Layout(props) {
@@ -29,6 +30,8 @@ function Routes() {
       <Route path="/users" component={Users} />
       <Route path="/games/quizz" component={lazy(() => import('./pages/games/quizz'))} />
       <Route path="/login" component={Login} />
+      <Route path="/profile" component={Profile} />
+
       <Route path="/register" component={Register} />
 
       <Route path="/laser-game" component={LaserGame} />

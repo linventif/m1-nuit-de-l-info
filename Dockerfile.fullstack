@@ -1,0 +1,63 @@
+# Dockerfile for Full Stack (Backend + Frontend)
+FROM oven/bun:1.1.38 AS base
+WORKDIR /app
+
+# Copy root configuration files
+COPY package.json bun.lockb* turbo.json ./
+
+# Copy workspace package.json files
+COPY apps/api/package.json ./apps/api/
+COPY apps/web/package.json ./apps/web/
+
+# Install dependencies
+RUN bun install
+
+# Build stage for frontend
+FROM base AS web-builder
+COPY apps/web ./apps/web
+RUN cd apps/web && bun run build
+
+# Production stage
+FROM oven/bun:1.1.38-slim AS production
+WORKDIR /app
+
+# Install nginx for serving frontend
+RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
+
+# Copy backend
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/package.json ./package.json
+COPY apps/api ./apps/api
+
+# Copy built frontend
+COPY --from=web-builder /app/apps/web/dist /usr/share/nginx/html
+
+# Create nginx config
+RUN echo 'server { \n\
+    listen 80; \n\
+    root /usr/share/nginx/html; \n\
+    index index.html; \n\
+    location / { \n\
+        try_files $uri $uri/ /index.html; \n\
+    } \n\
+    location /api { \n\
+        proxy_pass http://localhost:3001; \n\
+        proxy_http_version 1.1; \n\
+        proxy_set_header Upgrade $http_upgrade; \n\
+        proxy_set_header Connection "upgrade"; \n\
+        proxy_set_header Host $host; \n\
+        proxy_cache_bypass $http_upgrade; \n\
+    } \n\
+    location /health { \n\
+        proxy_pass http://localhost:3001; \n\
+    } \n\
+}' > /etc/nginx/sites-available/default
+
+# Create startup script
+RUN echo '#!/bin/bash\n\
+nginx\n\
+bun run apps/api/src/index.js' > /app/start.sh && chmod +x /app/start.sh
+
+EXPOSE 80 3001
+
+CMD ["/app/start.sh"]

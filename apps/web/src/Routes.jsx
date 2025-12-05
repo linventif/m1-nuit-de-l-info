@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Users from './pages/Users';
 import Login from './pages/Login';
+import LaserGame from './pages/LaserGame';
 
 
 function Layout(props) {
@@ -24,6 +25,7 @@ function Routes() {
       <Route path="/about" component={About} />
       <Route path="/users" component={Users} />
       <Route path="/login" component={Login} />
+      <Route path="/laser-game" component={LaserGame} />
 
     </Route>
   );

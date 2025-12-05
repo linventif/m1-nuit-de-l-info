@@ -24,13 +24,18 @@ export const User = sequelize.define(
         isEmail: true,
       },
     },
-    password: {
+    salt: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: false,
       validate: {
-        len: [60, 60],
+        notEmpty: true,
       },
+    },
+    password: {
+      type: DataTypes.JSON,
+      allowNull: false,
+      unique: false,
     },
     role: {
       type: DataTypes.STRING,

@@ -1,5 +1,6 @@
 import { createSignal, onMount, Show, For } from 'solid-js';
 import questionsData from './questions.json';
+import config from '../../config';
 
 function Quizz() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = createSignal(0);
@@ -26,6 +27,7 @@ function Quizz() {
 
         if (correct) {
             setScore(score() + 1);
+            incrPts();
         }
 
     };
@@ -50,6 +52,19 @@ function Quizz() {
         setSelectedAnswer(null);
         setIsCorrect(null);
     };
+
+    const incrPts = () => {
+        fetch(config.apiBaseUrl + '/auth/login');
+
+        const player = fetch(config.apiBaseUrl + '/auth/me', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            },
+            credentials: 'include',
+        }).then(res => res.json())
+    }
 
     return (
         <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4 font-mono">

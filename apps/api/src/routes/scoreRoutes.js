@@ -2,7 +2,7 @@ import express from 'express';
 import {
   getAllscores,
   getScoreByUserId,
-  addScorebyUserId,
+  setScorebyUserId,
 } from '../controllers/scoreController.js';
 
 const router = express.Router();

@@ -106,8 +106,6 @@ function SnakeApp() {
     <div
       style={{
         height: "100vh",
-        "background-color": "#020617",
-        color: "#e5e7eb",
         display: "flex",
         "justify-content": "center",
         "align-items": "center",
@@ -125,7 +123,6 @@ function SnakeApp() {
               "max-width": "800px",
               padding: "24px",
               "border-radius": "16px",
-              "background-color": "#020617",
             }}
           >
             <div
@@ -149,7 +146,6 @@ function SnakeApp() {
                 <p
                   style={{
                     "font-size": "13px",
-                    color: "#9ca3af",
                     margin: "6px 0 0 0",
                   }}
                 >
@@ -174,11 +170,10 @@ function SnakeApp() {
                     "text-align": "left",
                     padding: "16px",
                     "border-radius": "16px",
-                    border: "1px solid #1f2937",
-                    "background-color": "#020617",
                     "box-shadow": "0 10px 25px rgba(0,0,0,0.4)",
                     cursor: "pointer",
                   }}
+                  class="bg-base-100"
                 >
                   <div
                     style={{
@@ -212,7 +207,6 @@ function SnakeApp() {
                   <div
                     style={{
                       "font-size": "13px",
-                      color: "#9ca3af",
                       "margin-bottom": "10px",
                     }}
                   >
@@ -221,10 +215,10 @@ function SnakeApp() {
                   <div
                     style={{
                       "font-size": "11px",
-                      color: "#22c55e",
                       "text-transform": "uppercase",
                       "letter-spacing": "0.06em",
                     }}
+                    class="text-primary"
                   >
                     Jouer →
                   </div>
@@ -239,9 +233,8 @@ function SnakeApp() {
                   "margin-top": "20px",
                   padding: "12px 16px",
                   "border-radius": "12px",
-                  border: "1px dashed #4b5563",
-                  "background-color": "#020617",
                 }}
+                class="bg-base-100"
               >
                 <form
                   onSubmit={handleCheatSubmit}
@@ -302,7 +295,6 @@ function SnakeApp() {
                     style={{
                       "margin-top": "6px",
                       "font-size": "12px",
-                      color: "#9ca3af",
                     }}
                   >
                     {cheatMessage()}
@@ -364,7 +356,6 @@ function SnakeApp() {
                 <div
                   style={{
                     "font-size": "12px",
-                    color: "#9ca3af",
                     "max-width": "520px",
                   }}
                 >
@@ -379,8 +370,6 @@ function SnakeApp() {
                 padding: "6px 12px",
                 "border-radius": "999px",
                 border: "1px solid #334155",
-                "background-color": "#020617",
-                color: "#e5e7eb",
                 cursor: "pointer",
                 "font-size": "12px",
                 "white-space": "nowrap",

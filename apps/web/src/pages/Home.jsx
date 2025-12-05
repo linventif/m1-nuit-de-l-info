@@ -35,7 +35,7 @@ function Home() {
           <div class="card w-80 bg-gray-800 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer">
             <figure class="px-10 pt-10">
               <div class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
-                🏓
+                ✅
               </div>
             </figure>
             <div class="card-body items-center text-center">

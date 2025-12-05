@@ -24,6 +24,19 @@ export const User = sequelize.define(
         isEmail: true,
       },
     },
+    salt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    password: {
+      type: DataTypes.JSON,
+      allowNull: false,
+      unique: false,
+    },
     role: {
       type: DataTypes.STRING,
       defaultValue: 'user',

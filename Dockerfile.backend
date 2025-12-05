@@ -1,0 +1,21 @@
+# Dockerfile for Backend API only
+FROM oven/bun:1.1.38 AS base
+WORKDIR /app
+
+# Copy root configuration files
+COPY package.json bun.lockb* turbo.json ./
+
+# Copy API package.json
+COPY apps/api/package.json ./apps/api/
+
+# Install dependencies
+RUN bun install
+
+# Copy API source code
+COPY apps/api ./apps/api
+
+# Expose API port
+EXPOSE 3001
+
+# Start the API server
+CMD ["bun", "run", "apps/api/src/index.js"]

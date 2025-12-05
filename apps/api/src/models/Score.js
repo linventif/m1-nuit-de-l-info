@@ -30,7 +30,7 @@ export const Score = sequelize.define(
       },
     },
     game_type: {
-      type: DataTypes.ENUM('snake', 'laser', 'quizz'),
+      type: DataTypes.ENUM('snake_classic', 'snake_obstacles', 'absolute_snake', 'laser', 'quizz'),
       allowNull: false,
       unique: false,
     },

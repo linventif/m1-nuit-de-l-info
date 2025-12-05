@@ -32,9 +32,9 @@ export const getScoreByUserId = async (req, res) => {
 };
 
 /**
- * Add score by user ID
+ * Update or create score by user ID and game type
  */
-export const addScorebyUserId = async (req, res) => {
+export const setScorebyUserId = async (req, res) => {
   try {
     const { score, game_type } = req.body;
     const user_id = req.params.id;
@@ -43,16 +43,33 @@ export const addScorebyUserId = async (req, res) => {
       return res.status(400).json({ error: 'score and game_type are required' });
     }
 
-    if (!['snake', 'laser', 'quizz'].includes(game_type)) {
-      return res.status(400).json({ error: 'game_type must be either "snake" or "laser" or "quizz"' });
+    if (!['snake_classic', 'snake_obstacles', 'absolute_snake', 'laser', 'quizz'].includes(game_type)) {
+      return res.status(400).json({ error: 'game_type must be one of: snake_classic, snake_obstacles, absolute_snake, laser, quizz' });
     }
 
     if (score < 0) {
       return res.status(400).json({ error: 'score must be greater than or equal to 0' });
     }
 
-    const newScore = await Score.create({ user_id, score, game_type });
-    res.status(201).json(newScore);
+    // Chercher un score existant pour cet utilisateur et ce type de jeu
+    const existingScore = await Score.findOne({
+      where: {
+        user_id: user_id,
+        game_type: game_type,
+      },
+    });
+
+    let result;
+    if (existingScore) {
+      // Mettre à jour le score existant
+      await existingScore.update({ score });
+      result = existingScore;
+    } else {
+      // Créer un nouveau score si aucun n'existe
+      result = await Score.create({ user_id, score, game_type });
+    }
+
+    res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

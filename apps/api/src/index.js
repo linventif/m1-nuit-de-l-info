@@ -13,10 +13,32 @@ dotenv.config();
 const app = express();
 const PORT = process.env.API_PORT || 3001;
 
+// CORS Configuration - Permet toutes les origines pour éviter les problèmes CORS
+const corsOptions = {
+  origin: '*', // Autorise toutes les origines
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+    'Access-Control-Request-Method',
+    'Access-Control-Request-Headers',
+  ],
+  exposedHeaders: ['Authorization'],
+  credentials: false, // Pas besoin de credentials pour l'instant
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Handle preflight requests explicitly
+app.options('*', cors(corsOptions));
 
 // Routes
 app.use('/api/auth', authRoutes);

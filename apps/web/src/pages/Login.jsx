@@ -103,41 +103,41 @@ console.log("Données de connexion:", loginData);
 
   return (
     <div>
-      <h1 class="text-4xl font-bold text-center mt-10 text-purple-600">Page de connexion</h1>
+      <h1 class="text-4xl font-bold text-center mt-10 text-neutral">Page de connexion</h1>
       <div class="flex justify-center mt-8">
-        <form class="w-full max-w-sm bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form class="w-full max-w-sm bg-base-300 shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+            <label class="block text-sm font-bold mb-2" for="email">
               Email
             </label>
             <input
-              class="shadow border rounded w-full py-2 px-3 text-gray-700"
+              class="shadow border rounded w-full py-2 px-3"
               id="email"
               type="text"
               placeholder="Email"
             />
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            <label class="block text-sm font-bold mb-2" for="password">
               Mot de passe
             </label>
             <input
-              class="shadow border rounded w-full py-2 px-3 text-gray-700"
+              class="shadow border rounded w-full py-2 px-3"
               id="password"
               type="password"
               placeholder="******************"
             />
           </div>
-          <hr class="my-4 border-gray-300" />
+          <hr class="my-4" />
           <div class="flex justify-center mb-4">
             <div
-              class="w-10 h-10 bg-purple-400 cursor-pointer rounded"
+              class="w-10 h-10 bg-neutral cursor-pointer rounded"
               onClick={toggleGame1}
             ></div>
           </div>
           {isGame1Active() && (
             <div class="flex flex-col items-center">
-              <div class="mb-2 font-bold text-purple-700">
+              <div class="mb-2 font-bold text-neutral">
                 Cercles sélectionnés: {clickedOrder().length}
               </div>
 
@@ -158,7 +158,7 @@ console.log("Données de connexion:", loginData);
 
         <div class="flex justify-center mb-4">
             <div
-              class="w-10 h-10 bg-purple-400 cursor-pointer rounded"
+              class="w-10 h-10 bg-neutral cursor-pointer rounded"
               onClick={toggleGame2}
             >
                 <img src="/public/biometric_image.png" alt="Image" class="w-10 h-10" />
@@ -166,7 +166,7 @@ console.log("Données de connexion:", loginData);
           </div>
           {isGame2Active() && (
             <div class="flex flex-col items-center">
-              <div class="mb-2 font-bold text-purple-700">
+              <div class="mb-2 font-bold text-neutral">
               </div>
               <div class="flex flex-col items-center gap-2">
                 <input
@@ -218,13 +218,13 @@ console.log("Données de connexion:", loginData);
                 )}
                 {imagePreview() && (
                   <div class="flex flex-col items-center gap-2 mt-4">
-                    <div class="text-sm font-semibold text-purple-700">
+                    <div class="text-sm font-semibold text-neutral">
                       🔑 Cette image est votre clé de connexion
                     </div>
                     <img
                       src={imagePreview()}
                       alt="Clé de connexion"
-                      class="max-w-xs max-h-48 rounded-lg shadow-lg border-2 border-purple-400"
+                      class="max-w-xs max-h-48 rounded-lg shadow-lg border-2 border-neutral"
                     />
                     <div class="text-xs text-gray-500">
                       Utilisez cette même image pour vous connecter
@@ -250,7 +250,7 @@ console.log("Données de connexion:", loginData);
 
           <div class="flex justify-center mt-4">
             <button
-              class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+              class="bg-neutral hover:bg-secondary text-white font-bold py-2 px-4 rounded"
               type="button"
               onClick={handleSignIn}
             >

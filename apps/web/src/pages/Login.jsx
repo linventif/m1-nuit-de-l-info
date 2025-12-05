@@ -32,7 +32,7 @@ function Login() {
   };
 
   const handleSignIn = () => {
-    if (clickedOrder().length <= 6){
+    if (isGame1Active() && clickedOrder().length <= 6){
         alert("Veuillez sélectionner au moins 7 cercles pour le motif de connexion.");
         location.reload();
 
@@ -40,9 +40,19 @@ function Login() {
     const patternString = clickedOrder().join("");
 
     const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    if (!email) {
+        alert("Veuillez entrer une adresse e-mail.");
+        return;
+    }
+    let password = "";
+    if (patternString.length === 0){ 
+        password = document.getElementById("password").value;
+    } else{
+        password = patternString;
+    }
+    const loginData = { email, password };
 
-    const loginData = { email, password, pattern: patternString };
+    console.log("Données de connexion:", loginData);
 
     fetch("http://localhost:3001/api/auth/login", {
       method: "POST",
@@ -55,7 +65,8 @@ function Login() {
           localStorage.setItem("token", data.token);
           window.location.href = "/";
         } else {
-          console.log("Login failed:", data.message);
+          window.alert("Échec de la connexion: " + data.message);
+          window.location.reload();
         }
       });
   };

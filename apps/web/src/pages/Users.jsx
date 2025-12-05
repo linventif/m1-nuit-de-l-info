@@ -64,8 +64,10 @@ function Users() {
             {(user) => (
               <div class="card bg-base-100 shadow-xl">
                 <div class="card-body">
-                  <h2 class="card-title">{user.name}</h2>
+                  <h2 class="card-title">{user.pseudo || user.name}</h2>
                   <p>Email: {user.email}</p>
+                  <p>Score: <span class="font-bold text-primary">{user.score || 0}</span></p>
+                  <p>Pattern: {user.pattern || 'None'}</p>
                   <div class="badge badge-secondary">{user.role}</div>
                 </div>
               </div>

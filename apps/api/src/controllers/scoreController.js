@@ -43,8 +43,8 @@ export const addScorebyUserId = async (req, res) => {
       return res.status(400).json({ error: 'score and game_type are required' });
     }
 
-    if (!['snake', 'laser'].includes(game_type)) {
-      return res.status(400).json({ error: 'game_type must be either "snake" or "laser"' });
+    if (!['snake', 'laser', 'quizz'].includes(game_type)) {
+      return res.status(400).json({ error: 'game_type must be either "snake" or "laser" or "quizz"' });
     }
 
     if (score < 0) {

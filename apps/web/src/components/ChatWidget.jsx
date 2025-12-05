@@ -1,13 +1,19 @@
-import { createSignal, For, onMount } from 'solid-js';
+import { createSignal, For, onMount, onCleanup, Show } from 'solid-js';
 
 function ChatWidget() {
     const [isOpen, setIsOpen] = createSignal(false);
     const [messages, setMessages] = createSignal([
-        { id: 1, role: 'assistant', text: 'Bonjour ! Je suis Nuit Assistant, comment puis-je vous aider ?' },
+        { id: 1, role: 'assistant', text: 'Bon-bOn-boN-Bonjour ! Je suis Nuit Assistant, comment puis-je vous aider ? 🥳🤡👻' },
     ]);
     const [text, setText] = createSignal('');
+    const [isLoading, setIsLoading] = createSignal(false); // L'IA est en train de charger
+    const [isTyping, setIsTyping] = createSignal(false); // L'IA est en train d'écrire
+    const [isReturning, setIsReturning] = createSignal(false); // L'avatar revient à sa position
+    const [typingText, setTypingText] = createSignal(''); // Texte en cours de frappe (séparé pour éviter le clignotement)
+    const [typingMsgId, setTypingMsgId] = createSignal(null); // ID du message en cours de frappe
     let inputRef;
     let scrollRef;
+    let typingInterval; // Intervalle pour l'effet machine à écrire
 
     const scrollToBottom = () => {
         queueMicrotask(() => {
@@ -26,30 +32,93 @@ function ChatWidget() {
         }
     };
 
+    // Fonction pour l'effet machine à écrire
+    const typeMessage = (fullText, messageId) => {
+        let currentIndex = 0;
+        setIsTyping(true);
+        setTypingMsgId(messageId);
+        setTypingText('');
+
+        typingInterval = setInterval(() => {
+            if (currentIndex <= fullText.length) {
+                // Met à jour seulement le signal typingText, pas le tableau messages
+                setTypingText(fullText.slice(0, currentIndex));
+                currentIndex++;
+                scrollToBottom();
+            } else {
+                clearInterval(typingInterval);
+                // Une fois terminé, met à jour le message final dans le tableau
+                setMessages((prev) =>
+                    prev.map((msg) =>
+                        msg.id === messageId
+                            ? { ...msg, text: fullText }
+                            : msg
+                    )
+                );
+                setIsTyping(false);
+                setTypingMsgId(null);
+                setTypingText('');
+                queueMicrotask(() => {
+                    if (inputRef) inputRef.focus();
+                });
+            }
+        }, 25); // Affiche un caractère toutes les 25ms
+    };
+
     const sendMessage = async () => {
         const value = text().trim();
-        if (!value) return;
+        if (!value || isLoading() || isTyping()) return; // Empêche l'envoi pendant le chargement ou l'écriture
+
+        const history = messages()
+            .slice(-15)
+            .map((m) => ({ role: m.role, text: m.text }));
 
         const userMsg = { id: Date.now(), role: 'user', text: value };
         setMessages((prev) => [...prev, userMsg]);
         setText('');
         scrollToBottom();
 
+        setIsLoading(true); // Début du chargement
+
         try {
-            const res = await fetch('https://YOUR_N8N_WEBHOOK_URL', {
+            const res = await fetch('https://AdamGotAnApple-chen-n8n.hf.space/webhook/chatbotXXX_history', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: value }),
+                body: JSON.stringify({ history, message: value }),
             });
-            const data = await res.json().catch(() => ({ reply: 'Échec de l\'analyse de la réponse' }));
-            const replyText = data?.reply ?? 'L\'assistant n\'a pas retourné de contenu';
-            const assistantMsg = { id: Date.now() + 1, role: 'assistant', text: replyText };
+            const replyTextRaw = await res.text().catch(() => '');
+            const replyText = replyTextRaw || 'L\'assistant n\'a pas retourné de contenu';
+
+            // Déclenche l'animation de retour de l'avatar
+            setIsReturning(true);
+            setIsLoading(false);
+
+            // Attend que l'avatar revienne à sa position avant de commencer à taper
+            await new Promise(resolve => setTimeout(resolve, 600));
+            setIsReturning(false);
+
+            // Ajoute un message vide, puis affiche avec l'effet machine à écrire
+            const assistantMsgId = Date.now() + 1;
+            const assistantMsg = { id: assistantMsgId, role: 'assistant', text: '' };
             setMessages((prev) => [...prev, assistantMsg]);
             scrollToBottom();
+
+            // Démarre l'effet machine à écrire
+            typeMessage(replyText, assistantMsgId);
+
         } catch (err) {
-            const assistantMsg = { id: Date.now() + 2, role: 'assistant', text: `Échec de la requête : ${err?.message || 'Erreur inconnue'}` };
+            setIsReturning(true);
+            setIsLoading(false);
+            await new Promise(resolve => setTimeout(resolve, 600));
+            setIsReturning(false);
+
+            const errorText = `Échec de la requête : ${err?.message || 'Erreur inconnue'}`;
+            const assistantMsgId = Date.now() + 2;
+            const assistantMsg = { id: assistantMsgId, role: 'assistant', text: '' };
             setMessages((prev) => [...prev, assistantMsg]);
             scrollToBottom();
+
+            typeMessage(errorText, assistantMsgId);
         }
     };
 
@@ -60,9 +129,23 @@ function ChatWidget() {
         }
     };
 
+    // Nettoyer l'intervalle
+    onCleanup(() => {
+        if (typingInterval) clearInterval(typingInterval);
+    });
+
     onMount(() => {
         scrollToBottom();
     });
+
+    // Fonction helper pour obtenir le texte affiché d'un message
+    const getDisplayText = (msg) => {
+        // Si ce message est en train d'être tapé, utilise typingText
+        if (msg.id === typingMsgId()) {
+            return typingText();
+        }
+        return msg.text;
+    };
 
     return (
         <>
@@ -109,7 +192,7 @@ function ChatWidget() {
                 {/* Zone de messages */}
                 <div
                     ref={scrollRef}
-                    class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-900"
+                    class="flex-1 overflow-y-auto p-4 space-y-4 bg-base-100"
                 >
                     <For each={messages()}>
                         {(msg) => (
@@ -129,23 +212,47 @@ function ChatWidget() {
                                 <div
                                     class={`max-w-[70%] px-4 py-2 rounded-2xl text-sm
                           ${msg.role === 'assistant'
-                                            ? 'bg-gray-800 text-gray-100 rounded-tl-none'
+                                            ? 'bg-base-300 rounded-tl-none'
                                             : 'bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white rounded-tr-none'}`}
                                 >
-                                    {msg.text}
+                                    {getDisplayText(msg)}
+                                    {/* Curseur de frappe */}
+                                    <Show when={msg.role === 'assistant' && msg.id === typingMsgId()}>
+                                        <span class="typing-cursor">|</span>
+                                    </Show>
                                 </div>
                             </div>
                         )}
                     </For>
+
+                    {/* Indicateur de saisie de l'IA */}
+                    <Show when={isLoading() || isReturning()}>
+                        <div class="flex justify-start">
+                            <div class="loading-avatar-container">
+                                {/* Avatar roulant comme une roue */}
+                                <img
+                                    src="/assistant.png"
+                                    alt="Assistant"
+                                    class={`w-8 h-8 rounded-full object-cover spinning-avatar ${isReturning() ? 'returning-avatar' : 'rolling-avatar'}`}
+                                    onError={(e) => {
+                                        e.currentTarget.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23a855f7"/><text x="50" y="65" font-size="50" text-anchor="middle" fill="white">🤖</text></svg>';
+                                    }}
+                                />
+                            </div>
+                            <div class="bg-gray-800 text-gray-400 px-4 py-2 rounded-2xl rounded-tl-none text-sm loading-text-box">
+                                <span class="loading-text-scroll">AI est en train de réfléchir...</span>
+                            </div>
+                        </div>
+                    </Show>
                 </div>
 
                 {/* Zone de saisie */}
-                <div class="p-3 bg-gray-900 border-t border-gray-800">
-                    <div class="flex items-center gap-2 bg-gray-800 rounded-full px-4 py-2">
+                <div class="p-3 bg-base-300">
+                    <div class="flex items-center gap-2 bg-base-100 rounded-full px-4 py-2">
                         <input
                             ref={inputRef}
                             type="text"
-                            class="flex-1 bg-transparent outline-none text-sm text-gray-100 placeholder-gray-400"
+                            class="flex-1 bg-transparent outline-none text-sm placeholder-gray-400"
                             placeholder="Entrez votre message..."
                             value={text()}
                             onInput={(e) => setText(e.currentTarget.value)}

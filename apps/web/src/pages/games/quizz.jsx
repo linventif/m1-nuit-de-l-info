@@ -40,6 +40,7 @@ function Quizz() {
             setIsCorrect(null);
         } else {
             setShowScore(true);
+            incrPts();
         }
     };
 
@@ -56,14 +57,23 @@ function Quizz() {
     const incrPts = () => {
         fetch(config.apiBaseUrl + '/auth/login');
 
-        const player = fetch(config.apiBaseUrl + '/auth/me', {
+        fetch(config.apiBaseUrl + '/auth/me', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
             },
             credentials: 'include',
-        }).then(res => res.json())
+        }).then(res => fetch(config.apiBaseUrl + '/scores', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            },
+            credentials: 'include',
+            body: JSON.stringify({ score: score(), game_type: 'quizz' }),
+        })
+        )
     }
 
     return (

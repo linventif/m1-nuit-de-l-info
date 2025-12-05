@@ -24,10 +24,7 @@ function Routes() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/users" component={Users} />
-<<<<<<< HEAD
       <Route path="/games/quizz" component={lazy(() => import('./pages/games/quizz'))} />
-=======
->>>>>>> origin/main
       <Route path="/login" component={Login} />
 
     </Route>

@@ -13,30 +13,6 @@ if (savedTheme) {
 
 function Navbar() {
   return (
-<<<<<<< HEAD
-    <div class="navbar bg-base-100 shadow-lg">
-      <div class="flex-1">
-        <A href="/" class="btn btn-ghost text-xl">
-          Nuit de l'Info M1
-        </A>
-      </div>
-      <div class="flex-none">
-        <ul class="menu menu-horizontal px-1">
-          <li>
-            <A href="/">Home</A>
-          </li>
-          <li>
-            <A href="/about">About</A>
-          </li>
-          <li>
-            <A href="/users">Users</A>
-          </li>
-          <li>
-            <A href="/login">Login</A>
-          </li>
-        </ul>
-      </div>
-=======
     <div class="navbar bg-transparent shadow-none px-4 py-2 justify-end">
         <label class="flex cursor-pointer gap-2 items-center">
           <svg
@@ -78,7 +54,6 @@ function Navbar() {
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </label>
->>>>>>> origin/main
     </div>
   );
 }

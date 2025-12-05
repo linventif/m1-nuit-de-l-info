@@ -77,21 +77,21 @@ function Quizz() {
     }
 
     return (
-        <div class="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4 font-mono">
-            <div class="max-w-2xl w-full bg-gray-800 rounded-xl shadow-2xl p-8 border border-purple-500">
+        <div class="min-h-screen bg-base-200 flex flex-col items-center justify-center p-4 font-mono">
+            <div class="max-w-2xl w-full bg-base-300 rounded-xl shadow-2xl p-8 border border-neutral">
                 <Show when={!showScore()} fallback={
                     <div class="text-center space-y-6 animate-fade-in">
-                        <h2 class="text-4xl font-bold text-purple-400">Quiz Terminé!</h2>
+                        <h2 class="text-4xl font-bold text-neutral">Quiz Terminé!</h2>
                         <div class="text-6xl font-black text-white mb-4">
                             {score()} / {shuffledQuestions().length}
                         </div>
-                        <p class="text-gray-400 text-lg">
+                        <p class="text-lg">
                             {score() === shuffledQuestions().length ? 'Un sans fautes! Tu es un expert NIRD!' :
                                 score() > shuffledQuestions().length / 2 ? 'Bien joué! Continue ton apprentissage.' : 'Challenge toi!'}
                         </p>
                         <button
                             onClick={restartGame}
-                            class="btn btn-primary btn-lg w-full mt-8 bg-gradient-to-r from-purple-500 to-pink-600 border-none hover:scale-105 transition-transform"
+                            class="btn btn-primary btn-lg w-full mt-8 bg-gradient-to-r from-neutral to-secondary border-none hover:scale-105 transition-transform"
                         >
                             Rejouer
                         </button>
@@ -99,13 +99,13 @@ function Quizz() {
                     </div>
                 }>
                     <Show when={shuffledQuestions().length > 0}>
-                        <div class="mb-8 flex justify-between items-center text-gray-400 text-sm uppercase tracking-wider">
+                        <div class="mb-8 flex justify-between items-center text-sm uppercase tracking-wider">
                             <span>Question {currentQuestionIndex() + 1}/{shuffledQuestions().length}</span>
                             <span>Score: {score()}</span>
                         </div>
 
                         <div class="mb-8">
-                            <span class="badge badge-secondary mb-4">{shuffledQuestions()[currentQuestionIndex()].category}</span>
+                            <span class="badge badge-neutral mb-4">{shuffledQuestions()[currentQuestionIndex()].category}</span>
                             <h2 class="text-2xl md:text-3xl font-bold leading-tight">
                                 {shuffledQuestions()[currentQuestionIndex()].question}
                             </h2>
@@ -119,19 +119,19 @@ function Quizz() {
                                         disabled={selectedAnswer() !== null}
                                         class={`w-full p-4 text-left rounded-lg transition-all duration-200 border-2 
                       ${selectedAnswer() === null
-                                                ? 'bg-gray-700 border-gray-600 hover:bg-gray-600 hover:border-purple-400'
+                                                ? 'bg-secondary border-gray-900 hover:bg-neutral hover:border-purple-400'
                                                 : index() === shuffledQuestions()[currentQuestionIndex()].correct_answer_index
                                                     ? 'bg-green-900/50 border-green-500 text-green-200'
                                                     : selectedAnswer() === index()
                                                         ? 'bg-red-900/50 border-red-500 text-red-200'
-                                                        : 'bg-gray-700/50 border-gray-700 opacity-50'
+                                                        : 'bg-gray-900/50 border-gray-900 opacity-50'
                                             }
                     `}
                                     >
                                         <div class="flex items-center">
                                             <div class={`w-8 h-8 rounded-full flex items-center justify-center mr-4 font-bold border
                         ${selectedAnswer() === null
-                                                    ? 'border-gray-500 text-gray-400'
+                                                    ? ''
                                                     : index() === shuffledQuestions()[currentQuestionIndex()].correct_answer_index
                                                         ? 'bg-green-500 border-green-500 text-white'
                                                         : selectedAnswer() === index()
@@ -153,7 +153,7 @@ function Quizz() {
                                 <p class="text-sm font-bold mb-1">
                                     {isCorrect() ? 'Correct!' : 'Incorrect'}
                                 </p>
-                                <p class="text-gray-300 text-sm">
+                                <p class="text-sm">
                                     {shuffledQuestions()[currentQuestionIndex()].explanation}
                                 </p>
                             </div>

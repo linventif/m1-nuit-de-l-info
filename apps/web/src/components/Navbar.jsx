@@ -1,4 +1,4 @@
-import { A } from '@solidjs/router';
+import { A, useLocation } from '@solidjs/router';
 
 const savedTheme = localStorage.getItem("theme");
 
@@ -12,8 +12,22 @@ if (savedTheme) {
 }
 
 function Navbar() {
+  const location = useLocation();
+  const isHome = () => location.pathname === "/";
+  console.log(location.pathname);
+  console.log(isHome)
   return (
-    <div class="navbar bg-transparent shadow-none px-4 py-2 justify-end">
+    <div class="navbar bg-transparent shadow-none px-4 py-2 flex justify-between items-center">
+      
+      {/* Left side */}
+      <div class="flex items-center gap-2">
+        {!isHome() && (
+          <A href="/" class="btn btn-neutral">
+            Home
+          </A>
+        )}
+      </div>
+      <div class="flex items-center">
         <label class="flex cursor-pointer gap-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,6 +68,7 @@ function Navbar() {
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </label>
+      </div>
     </div>
   );
 }

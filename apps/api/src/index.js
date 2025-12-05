@@ -13,9 +13,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.API_PORT || 3001;
 
-// CORS Configuration - Permet toutes les origines pour éviter les problèmes CORS
+// CORS Configuration - Specify exact origin for credentials support
 const corsOptions = {
-  origin: '*', // Autorise toutes les origines
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Specify exact origin for credentials
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: [
     'Content-Type',
@@ -27,7 +27,7 @@ const corsOptions = {
     'Access-Control-Request-Headers',
   ],
   exposedHeaders: ['Authorization'],
-  credentials: false, // Pas besoin de credentials pour l'instant
+  credentials: true, // Enable credentials for authenticated requests
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
@@ -45,7 +45,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/scores', scoreRoutes);
 app.use('/health', healthRoutes);
-  
+
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({

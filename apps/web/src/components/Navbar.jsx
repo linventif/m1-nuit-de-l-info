@@ -36,7 +36,7 @@ function Navbar() {
 
   return (
     <div class="navbar bg-transparent shadow-none px-4 py-2 flex justify-between items-center">
-      
+
       {/* Left side */}
       <div class="flex items-center gap-2">
         {!isHome() && (
@@ -45,7 +45,12 @@ function Navbar() {
           </A>
         )}
       </div>
-      <div class="flex items-center">
+      <div className="flex flex-direction-row">
+        {localStorage.getItem("token") ? (
+          <A href="/users" class="btn btn-ghost">Profil</A>
+        ) : (
+          <A href="/login" class="btn btn-ghost">Se connecter</A>
+        )}
         <label class="flex cursor-pointer gap-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"

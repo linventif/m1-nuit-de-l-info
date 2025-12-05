@@ -1,4 +1,4 @@
-import { createSignal} from "solid-js";
+import { createSignal } from "solid-js";
 import MemoryGame from "../components/MemoryGame";
 import { A } from '@solidjs/router';
 
@@ -52,10 +52,10 @@ function Home() {
             </div>
           </div>
 
-          
+
           {/* Game Card 3 */}
           <div class="card w-80 bg-base-300 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-primary hover:border-secondary group cursor-pointer relative overflow-hidden">
-             
+
             <figure class="px-10 pt-10">
               <div class="w-24 h-24 rounded-full bg-gradient-to-br from-secondary to-neutral flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
                 🔫

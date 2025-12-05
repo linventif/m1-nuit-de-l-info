@@ -1,27 +1,51 @@
-import { createSignal, createEffect, onMount } from "solid-js";
+import { createSignal, createEffect, onMount } from 'solid-js';
 
 const cardsData = [
-  { title: "Collectivités", url: "https://nird.forge.apps.education.fr/collectivites/", logo: "🏛️" },
-  { title: "Boite à outils", url: "https://nird.forge.apps.education.fr/tools/", logo: "🧰" },
-  { title: "Démarche", url: "https://nird.forge.apps.education.fr/demarche/", logo: "🚸" },
-  { title: "Pourquoi", url: "https://nird.forge.apps.education.fr/pourquoi/", logo: "❓" },
-  { title: "Linux", url: "https://nird.forge.apps.education.fr/linux/", logo: "🐧" },
-  { title: "Reconditionnement", url: "https://nird.forge.apps.education.fr/reconditionnement/", logo: "♻️" },
+  {
+    title: 'Collectivités',
+    url: 'https://nird.forge.apps.education.fr/collectivites/',
+    logo: '🏛️',
+  },
+  {
+    title: 'Boite à outils',
+    url: 'https://nird.forge.apps.education.fr/tools/',
+    logo: '🧰',
+  },
+  {
+    title: 'Démarche',
+    url: 'https://nird.forge.apps.education.fr/demarche/',
+    logo: '🚸',
+  },
+  {
+    title: 'Pourquoi',
+    url: 'https://nird.forge.apps.education.fr/pourquoi/',
+    logo: '❓',
+  },
+  {
+    title: 'Linux',
+    url: 'https://nird.forge.apps.education.fr/linux/',
+    logo: '🐧',
+  },
+  {
+    title: 'Reconditionnement',
+    url: 'https://nird.forge.apps.education.fr/reconditionnement/',
+    logo: '♻️',
+  },
 ];
 
-const team = [ 
-    { name: "Enzo", role: "Sneaky dev"}, 
-    { name: "Shifu", role: "Mascot"}, 
-    { name: "Robbe", role: "Frontend dev"}, 
-    { name: "Léa", role: "QA"}, 
-    { name: "Kepeng", role: "DevOps"}, 
-    { name: "Guilherme", role: "Login"}, 
-    { name: "Jimmy", role: "Login"}, 
-    { name: "Titouan", role: "PM"}, 
-    { name: "Grégoire", role: "DevOps"}, 
-    { name: "Samy", role: "Support"}, 
-    { name: "Guillaume", role: "Community"}, 
-    { name: "Zhengyi", role: "Designer"}, 
+const team = [
+  { name: 'Enzo', role: 'Sneaky dev' },
+  { name: 'Shifu', role: 'Mascot' },
+  { name: 'Robbe', role: 'Frontend dev' },
+  { name: 'Léa', role: 'QA' },
+  { name: 'Kepeng', role: 'DevOps' },
+  { name: 'Guilherme', role: 'Login' },
+  { name: 'Jimmy', role: 'Login' },
+  { name: 'Titouan', role: 'PM' },
+  { name: 'Grégoire', role: 'DevOps' },
+  { name: 'Samy', role: 'Support' },
+  { name: 'Guillaume', role: 'Community' },
+  { name: 'Zhengyi', role: 'Designer' },
 ];
 
 function shuffle(array) {
@@ -38,25 +62,28 @@ function calculateScore(moves) {
 
 async function sendScoreToBackend(moves) {
   try {
-    const response = await fetch("https://ton-backend.com/api/nird-memory-score", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        player: "NomDuJoueur", // tu peux remplacer par le vrai nom ou ID
-        score: calculateScore(moves),
-        date: new Date().toISOString(),
-      }),
-    });
+    const response = await fetch(
+      'https://ton-backend.com/api/nird-memory-score',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          player: 'NomDuJoueur', // tu peux remplacer par le vrai nom ou ID
+          score: calculateScore(moves),
+          date: new Date().toISOString(),
+        }),
+      }
+    );
 
     if (!response.ok) {
-      console.error("Error score");
-      return
+      console.error('Error score');
+      return;
     }
 
     const data = await response.json();
-    console.log("Score envoyé avec succès :", data);
+    console.log('Score envoyé avec succès :', data);
   } catch (error) {
     console.error("Impossible d'envoyer le score :", error);
   }
@@ -73,44 +100,47 @@ export default function NirdMemoryGame() {
 
   onMount(() => {
     (async () => {
-        try {
+      try {
         // 1. Récupération de l'utilisateur connecté
-        const resUser = await fetch("http://localhost:3001/api/auth/me", {
-            credentials: "include", // IMPORTANT pour cookies / sessions
+        const resUser = await fetch('http://localhost:3001/api/auth/me', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         });
 
-        if (!resUser.ok) throw new Error("Utilisateur non connecté");
+        if (!resUser.ok) throw new Error('Utilisateur non connecté');
 
-        
         const userData = await resUser.json();
-        console.log(userData)
+        console.log(userData);
         setUser(userData);
 
         // 2. Récupération du meilleur score du joueur
         const resScore = await fetch(
-            `http://localhost:3001/api/nird-memory-score/${userData.id}`,
-            {
-            credentials: "include",
-            }
+          `http://localhost:3001/api/nird-memory-score/${userData.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
         );
 
         if (resScore.ok) {
-            const scoreData = await resScore.json();
-            setPreviousScore(scoreData.bestScore);
+          const scoreData = await resScore.json();
+          setPreviousScore(scoreData.bestScore);
         }
-
-        } catch (error) {
-        console.warn("Mode invité ou problème de connexion :", error);
-        }
+      } catch (error) {
+        console.warn('Mode invité ou problème de connexion :', error);
+      }
     })();
-    const savedScore = localStorage.getItem("nird-memory-score");
+    const savedScore = localStorage.getItem('nird-memory-score');
     if (savedScore) {
       setPreviousScore(Number(savedScore));
     }
   });
 
   const flipCard = (index) => {
-    if (lock() || flipped().includes(index) || matched().includes(index)) return;
+    if (lock() || flipped().includes(index) || matched().includes(index))
+      return;
 
     const newFlipped = [...flipped(), index];
     setFlipped(newFlipped);
@@ -147,13 +177,13 @@ export default function NirdMemoryGame() {
   createEffect(() => {
     if (matched().length === cards().length && !scoreSent()) {
       const score = calculateScore(moves());
-      const oldScore = Number(localStorage.getItem("nird-memory-score") || 0);
+      const oldScore = Number(localStorage.getItem('nird-memory-score') || 0);
       // Sauvegarde locale
-      if (oldScore < score){
-        localStorage.setItem("nird-memory-score", score);
+      if (oldScore < score) {
+        localStorage.setItem('nird-memory-score', score);
         setPreviousScore(score);
       }
-      
+
       // Envoi backend (async, non bloquant)
       sendScoreToBackend(moves());
 
@@ -173,11 +203,12 @@ export default function NirdMemoryGame() {
 
       <div class="grid grid-cols-4 gap-4">
         {cards().map((card, index) => {
-          const isFlipped = flipped().includes(index) || matched().includes(index);
+          const isFlipped =
+            flipped().includes(index) || matched().includes(index);
           return (
             <div
               class={`card card-compact w-48 h-32 cursor-pointer shadow-lg transition-transform duration-300 transform ${
-                isFlipped ? "bg-base-100 scale-105" : "bg-accent"
+                isFlipped ? 'bg-base-100 scale-105' : 'bg-accent'
               } flex flex-col items-center justify-center p-2 text-center`}
               onClick={() => flipCard(index)}
             >
@@ -185,12 +216,14 @@ export default function NirdMemoryGame() {
                 <>
                   <h4 class="font-bold">{card.title}</h4>
                   <span class="text-3xl">{card.logo}</span>
-                  <a target="_blank" href={card.url} class="btn btn-sm p-2">Lien</a>
+                  <a target="_blank" href={card.url} class="btn btn-sm p-2">
+                    Lien
+                  </a>
                 </>
               ) : (
                 <>
-                    <span class="text-xl font-bold">{team[index].name}</span>
-                    <p>{team[index].role}</p>
+                  <span class="text-xl font-bold">{team[index].name}</span>
+                  <p>{team[index].role}</p>
                 </>
               )}
             </div>
@@ -200,7 +233,7 @@ export default function NirdMemoryGame() {
 
       {matched().length === cards().length && (
         <div class="alert alert-success mt-6 text-center">
-          🎉 Bravo ! Terminé en {moves()} coups  
+          🎉 Bravo ! Terminé en {moves()} coups
           <br />
           🏆 Score : {calculateScore(moves())}/100
         </div>

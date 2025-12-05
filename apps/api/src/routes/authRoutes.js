@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, logout, getCurrentUser } from '../controllers/authController.js';
+import { register, login, logout, getCurrentUser, updateGamePassword } from '../controllers/authController.js';
 import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -31,6 +31,13 @@ router.post('/logout', authenticateToken, logout);
  * @access  Private
  */
 router.get('/me', authenticateToken, getCurrentUser);
+
+/**
+ * @route   PUT /api/auth/password/:gameType
+ * @desc    Add or update password for a specific game type
+ * @access  Private
+ */
+router.put('/register/:gameType', authenticateToken, updateGamePassword);
 
 export default router;
 

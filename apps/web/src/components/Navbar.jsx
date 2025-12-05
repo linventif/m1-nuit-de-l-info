@@ -1,4 +1,6 @@
 import { A, useLocation } from '@solidjs/router';
+import { createSignal, createEffect } from "solid-js";
+
 
 const savedTheme = localStorage.getItem("theme");
 
@@ -11,11 +13,27 @@ if (savedTheme) {
   document.documentElement.dataset.theme = prefersDark ? "customdark" : "customlight";
 }
 
+
 function Navbar() {
   const location = useLocation();
   const isHome = () => location.pathname === "/";
-  console.log(location.pathname);
-  console.log(isHome)
+  const [isLoggedIn, setIsLoggedIn] = createSignal(false);
+
+  createEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  });
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+    } catch (err) {
+      console.error("Error al hacer logout:", err);
+    }
+  };
+
   return (
     <div class="navbar bg-transparent shadow-none px-4 py-2 flex justify-between items-center">
       

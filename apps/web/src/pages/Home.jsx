@@ -7,7 +7,7 @@ function Home() {
 
   return (
     <div class="min-h-[80vh] flex flex-col items-center justify-center text-base-content font-mono pb-5 pt-0">
-      <div class="text-center space-y-8 animate-fade-in max-w-7xl w-full">
+      <div class="text-center space-y-8 animate-fade-in max-w-8xl w-full">
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-neutral drop-shadow-lg">
           ENTREZ DANS L'ÈRE NIRD
         </h1>
@@ -54,22 +54,20 @@ function Home() {
 
 
           {/* Game Card 3 */}
-          <div class="card w-80 bg-gray-800 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer relative overflow-hidden">
-            {/* Petit effet visuel pour le mettre en avant */}
-            <div class="absolute inset-0 bg-yellow-400/10 animate-pulse pointer-events-none"></div>
+          <div class="card w-80 bg-base-300 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-primary hover:border-secondary group cursor-pointer relative overflow-hidden">
 
             <figure class="px-10 pt-10">
-              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
+              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-secondary to-neutral flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
                 🔫
               </div>
             </figure>
             <div class="card-body items-center text-center">
-              <h2 class="card-title text-2xl text-yellow-400 font-bold">Neon Laser Pong</h2>
+              <h2 class="card-title text-2xl text-secondary font-bold">Neon Laser Pong</h2>
               {/* Description mise à jour pour le défi */}
               <p class="text-gray-400 text-sm">Transformez votre souris en laser. Détruisez le DOM !</p>
               <div class="card-actions mt-4">
                 {/* Lien vers notre route LaserGame */}
-                <A href="/laser-game" class="btn btn-primary btn-wide bg-gradient-to-r from-yellow-500 to-red-500 border-none text-white font-bold hover:brightness-110 shadow-[0_0_15px_rgba(255,165,0,0.5)]">
+                <A href="/laser-game" class="btn btn-secondary btn-wide bg-gradient-to-r from-secondary to-neutral border-none text-white font-bold hover:brightness-110]">
                   PLAY NOW
                 </A>
               </div>

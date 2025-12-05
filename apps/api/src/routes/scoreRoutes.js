@@ -2,7 +2,7 @@ import express from 'express';
 import {
   getAllscores,
   getScoreByUserId,
-  addScorebyUserId,
+  setScorebyUserId,
 } from '../controllers/scoreController.js';
 
 const router = express.Router();
@@ -22,10 +22,11 @@ router.get('/', getAllscores);
 router.get('/:id', getScoreByUserId);
 
 /**
- * @route   POST /api/scores
- * @desc    Create a new score
+ * @route   POST /api/scores/:id
+ * @desc    Update or create score for a user
  * @access  Public
  */
-router.post('/:id', addScorebyUserId);
+router.post('/:id', setScorebyUserId);
 
+export default router;
 

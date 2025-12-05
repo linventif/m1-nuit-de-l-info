@@ -7,7 +7,7 @@ function Home() {
 
   return (
     <div class="min-h-[80vh] flex flex-col items-center justify-center text-base-content font-mono pb-5 pt-0">
-      <div class="text-center space-y-8 animate-fade-in max-w-7xl w-full">
+      <div class="text-center space-y-8 animate-fade-in max-w-8xl w-full">
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-neutral drop-shadow-lg">
           ENTREZ DANS L'ÈRE NIRD
         </h1>
@@ -54,7 +54,7 @@ function Home() {
 
           
           {/* Game Card 3 */}
-          <div class="card w-80 bg-base-300 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-purple-500 hover:border-pink-500 group cursor-pointer relative overflow-hidden">
+          <div class="card w-80 bg-base-300 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-primary hover:border-secondary group cursor-pointer relative overflow-hidden">
              
             <figure class="px-10 pt-10">
               <div class="w-24 h-24 rounded-full bg-gradient-to-br from-secondary to-neutral flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">

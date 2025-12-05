@@ -1,4 +1,5 @@
 import { Route } from '@solidjs/router';
+import { lazy } from 'solid-js';
 import Navbar from './components/Navbar';
 import ChatWidget from './components/ChatWidget';
 import Home from './pages/Home';
@@ -23,6 +24,7 @@ function Routes() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/users" component={Users} />
+      <Route path="/games/quizz" component={lazy(() => import('./pages/games/quizz'))} />
       <Route path="/login" component={Login} />
 
     </Route>

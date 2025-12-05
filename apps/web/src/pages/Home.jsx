@@ -36,15 +36,15 @@ function Home() {
           {/* Game Card 2 */}
           <div class="card w-80 bg-base-300 shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-primary hover:border-secondary group cursor-pointer">
             <figure class="px-10 pt-10">
-              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-warning to-error flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
-                🏓
+              <div class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center text-4xl shadow-lg group-hover:animate-bounce">
+                ✅
               </div>
             </figure>
             <div class="card-body items-center text-center">
-              <h2 class="card-title text-warning font-bold text-2xl">Neon Pong</h2>
-              <p class="text-base-content/60 text-sm">Defeat the AI in this neon classic.</p>
+              <h2 class="card-title text-2xl text-yellow-400 font-bold">Quizz NIRD</h2>
+              <p class="text-gray-400 text-sm">Teste tes connaissances sur les démarches NIRD.</p>
               <div class="card-actions mt-4">
-                <a href="/games/pong" class="btn btn-warning btn-wide border-none hover:brightness-110">
+                <a href="/games/quizz" class="btn btn-primary btn-wide bg-gradient-to-r from-yellow-500 to-red-500 border-none text-white font-bold hover:brightness-110">
                   PLAY NOW
                 </a>
               </div>
@@ -59,10 +59,10 @@ function Home() {
               </div>
             </figure>
             <div class="card-body items-center text-center">
-              <h2 class="card-title text-secondary font-bold text-2xl">Space Invaders</h2>
-              <p class="text-base-content/60 text-sm">Defend Earth from alien invasion.</p>
+              <h2 class="card-title text-2xl text-pink-400 font-bold">Laser Game</h2>
+              <p class="text-gray-400 text-sm">Teste tes réflexes avec ce jeu de laser.</p>
               <div class="card-actions mt-4">
-                <a href="/games/invaders" class="btn btn-secondary btn-wide border-none hover:brightness-110">
+                <a href="/games/laser" class="btn btn-primary btn-wide bg-gradient-to-r from-pink-500 to-purple-600 border-none text-white font-bold hover:brightness-110">
                   PLAY NOW
                 </a>
               </div>

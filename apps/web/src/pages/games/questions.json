@@ -1,0 +1,422 @@
+{
+    "title": "Quiz Démarche NIRD et Sobriété Numérique",
+    "description": "Testez vos connaissances sur le Numérique Inclusif, Responsable et Durable à l'école.",
+    "questions": [
+        {
+            "id": 1,
+            "category": "Concept NIRD",
+            "question": "Que signifie l'acronyme NIRD dans le contexte éducatif ?",
+            "options": [
+                "Numérique Interdit aux Réseaux de Données",
+                "Numérique Inclusif, Responsable et Durable",
+                "Nouvelle Informatique Rapide et Disponible",
+                "Norme Internationale de Réparation Durable"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "NIRD désigne une démarche globale visant un numérique respectueux des personnes (inclusif) et de la planète (responsable et durable)."
+        },
+        {
+            "id": 2,
+            "category": "Sobriété Numérique",
+            "question": "Quelle étape du cycle de vie d'un ordinateur a le plus grand impact environnemental ?",
+            "options": [
+                "Le transport vers le magasin",
+                "L'utilisation électrique quotidienne",
+                "La fabrication (extraction des minerais et production)",
+                "Le recyclage en fin de vie"
+            ],
+            "correct_answer_index": 2,
+            "explanation": "La fabrication représente environ 70 à 80% de l'empreinte carbone d'un terminal. C'est pour cela que faire durer le matériel est crucial."
+        },
+        {
+            "id": 3,
+            "category": "Obsolescence",
+            "question": "Qu'est-ce que l'obsolescence programmée « logicielle » ?",
+            "options": [
+                "Un virus qui détruit l'ordinateur",
+                "Le fait qu'une mise à jour logicielle rende un matériel ancien inutilisable ou très lent",
+                "Une panne de batterie programmée par le fabricant",
+                "L'interdiction d'utiliser de vieux logiciels"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "C'est lorsqu'un système d'exploitation ou une application demande trop de ressources pour un matériel existant, forçant un achat prématuré."
+        },
+        {
+            "id": 4,
+            "category": "Réemploi & Linux",
+            "question": "Comment la démarche NIRD propose-t-elle de lutter contre cette obsolescence logicielle ?",
+            "options": [
+                "En achetant des ordinateurs plus puissants",
+                "En installant des systèmes d'exploitation libres et légers (GNU/Linux)",
+                "En ne connectant plus les ordinateurs à Internet",
+                "En remplaçant les écrans tous les ans"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "Installer Linux (comme PrimTux ou Linux Mint) permet de redonner de la fluidité à des ordinateurs de 5, 8 ou 10 ans qui ne supportent plus Windows."
+        },
+        {
+            "id": 5,
+            "category": "La Forge",
+            "question": "Quel est le rôle de la « Forge des communs numériques éducatifs » dans ce projet ?",
+            "options": [
+                "C'est un atelier de soudure pour réparer les PC",
+                "C'est une plateforme pour acheter des logiciels",
+                "C'est un espace pour mutualiser, stocker et partager les outils et scripts créés par la communauté",
+                "C'est un réseau social pour les élèves"
+            ],
+            "correct_answer_index": 2,
+            "explanation": "La Forge permet de co-construire des solutions. Si un établissement crée un script de déploiement, il le partage sur la Forge pour que tous en profitent."
+        },
+        {
+            "id": 6,
+            "category": "Réemploi",
+            "question": "Quel est l'avantage écologique du reconditionnement par rapport au recyclage ?",
+            "options": [
+                "Il n'y en a pas, c'est pareil",
+                "Le recyclage consomme beaucoup d'énergie et on perd de la matière, le reconditionnement prolonge l'usage",
+                "Le reconditionnement polluent plus que la fabrication",
+                "Le recyclage permet de fabriquer de l'or"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "Le meilleur déchet est celui qu'on ne produit pas. Prolonger la vie d'un PC évite la fabrication d'un neuf, ce qui est bien plus efficace que le recyclage."
+        },
+        {
+            "id": 7,
+            "category": "Co-construction",
+            "question": "Que sont les « Communs Numériques » ?",
+            "options": [
+                "Des ressources (logiciels, données) gérées collectivement et accessibles à tous",
+                "Des ordinateurs prêtés par la mairie",
+                "Des câbles réseaux standards",
+                "Des applications payantes mais pas chères"
+            ],
+            "correct_answer_index": 0,
+            "explanation": "La démarche NIRD s'appuie sur des communs : des ressources libres que chacun peut utiliser, améliorer et partager sans barrière propriétaire."
+        },
+        {
+            "id": 8,
+            "category": "Linux",
+            "question": "Quelle distribution Linux éducative est souvent recommandée pour les écoles primaires dans la démarche NIRD ?",
+            "options": [
+                "Red Hat Enterprise",
+                "Kali Linux",
+                "PrimTux",
+                "SteamOS"
+            ],
+            "correct_answer_index": 2,
+            "explanation": "PrimTux est une distribution spécialisée pour le premier degré, légère, sécurisée et fournie avec de nombreux logiciels pédagogiques libres."
+        },
+        {
+            "id": 9,
+            "category": "Accompagnement",
+            "question": "Qui sont les acteurs principaux aidés par la démarche NIRD ?",
+            "options": [
+                "Uniquement les grandes entreprises",
+                "Les collectivités territoriales (Mairies, Départements) et les équipes éducatives",
+                "Les vendeurs de matériel informatique",
+                "Les fournisseurs d'accès internet"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "NIRD accompagne les collectivités (qui paient le matériel) pour réduire leurs coûts et leur empreinte carbone, et les profs pour l'usage pédagogique."
+        },
+        {
+            "id": 10,
+            "category": "Sobriété Numérique",
+            "question": "En quoi consiste la « sensibilisation » des élèves dans le projet NIRD ?",
+            "options": [
+                "Leur apprendre à taper vite au clavier",
+                "Leur faire démonter des PC pour comprendre leur valeur et l'impact écologique",
+                "Leur interdire d'utiliser des écrans",
+                "Leur montrer comment acheter en ligne"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "La sensibilisation passe par l'action : réparer, installer un système, comprendre ce qu'il y a dans la machine pour devenir un citoyen numérique éclairé."
+        },
+        {
+            "id": 11,
+            "category": "Technique",
+            "question": "Quel composant est souvent ajouté à un vieux PC pour le rendre beaucoup plus rapide lors du reconditionnement ?",
+            "options": [
+                "Une carte graphique de jeu",
+                "Un lecteur de disquette",
+                "Un disque SSD (à la place du disque dur mécanique)",
+                "Une carte Wi-Fi 6"
+            ],
+            "correct_answer_index": 2,
+            "explanation": "Remplacer un vieux disque dur mécanique (HDD) par un SSD est l'investissement le plus rentable pour accélérer radicalement un vieil ordinateur."
+        },
+        {
+            "id": 12,
+            "category": "Autonomie",
+            "question": "Pourquoi privilégier des solutions « autonomes et locales » plutôt que le tout-cloud ?",
+            "options": [
+                "Pour ne pas dépendre d'une connexion internet permanente et garder la maîtrise des données",
+                "Parce que le Cloud est interdit à l'école",
+                "Parce que le local est plus cher",
+                "Pour empêcher les mises à jour"
+            ],
+            "correct_answer_index": 0,
+            "explanation": "L'autonomie permet de faire cours même si Internet est coupé et garantit que les données des élèves ne partent pas sur des serveurs étrangers."
+        },
+        {
+            "id": 13,
+            "category": "La Forge",
+            "question": "Sur quelle technologie libre la Forge est-elle basée ?",
+            "options": [
+                "GitHub",
+                "GitLab",
+                "BitBucket",
+                "SourceForge"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "La Forge de l'Éducation nationale utilise GitLab Community Edition, un standard du logiciel libre pour le développement collaboratif."
+        },
+        {
+            "id": 14,
+            "category": "Juridique",
+            "question": "Quel type de licence favorise la mutualisation des ressources NIRD ?",
+            "options": [
+                "Le Copyright strict",
+                "Les Licences Libres (ex: GNU GPL, Creative Commons BY-SA)",
+                "Le Brevet",
+                "Le secret industriel"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "Les licences libres permettent légalement à une autre école de copier, modifier et améliorer une solution créée ailleurs."
+        },
+        {
+            "id": 15,
+            "category": "Technique",
+            "question": "Qu'est-ce qu'une image ISO dans le cadre du reconditionnement ?",
+            "options": [
+                "Une photo de l'ordinateur",
+                "Le fichier contenant le système d'exploitation complet à installer",
+                "Une norme de qualité environnementale",
+                "Un logiciel de dessin"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "C'est la copie numérique du système (comme Linux Mint ou PrimTux) que l'on va 'flasher' sur une clé USB pour l'installer sur les PC."
+        },
+        {
+            "id": 16,
+            "category": "Sobriété Numérique",
+            "question": "Quel est l'intérêt d'utiliser un « client léger » ?",
+            "options": [
+                "C'est un ordinateur qui pèse moins de 500g",
+                "C'est utiliser de vieux ordinateurs peu puissants connectés à un serveur qui fait le calcul",
+                "C'est un logiciel sans options",
+                "C'est un élève qui ne mange pas à la cantine"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "Le client léger permet de réutiliser des machines très anciennes (même de 15 ans) car elles servent juste d'affichage, le travail se fait sur le serveur."
+        },
+        {
+            "id": 17,
+            "category": "Co-construction",
+            "question": "Comment la démarche NIRD favorise-t-elle l'économie locale ?",
+            "options": [
+                "En achetant tout chez Amazon",
+                "En favorisant la réparation par des associations locales, des ESAT ou des régies de quartier",
+                "En vendant les ordinateurs aux élèves",
+                "En créant une monnaie virtuelle"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "Le reconditionnement est une activité locale, créatrice d'emploi et de lien social, contrairement à l'achat de matériel neuf importé."
+        },
+        {
+            "id": 18,
+            "category": "Sécurité",
+            "question": "Pourquoi Linux est-il considéré comme sécurisé pour les vieux PC ?",
+            "options": [
+                "Il n'y a pas de virus sur Linux",
+                "Son code est ouvert et audité, et la gestion des droits limite l'impact des virus (malwares)",
+                "Il possède un antivirus payant intégré",
+                "Il ne se connecte pas au réseau"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "L'architecture de Linux (gestion des droits administrateur) rend la propagation des virus beaucoup plus difficile que sur les anciens Windows."
+        },
+        {
+            "id": 19,
+            "category": "La Forge",
+            "question": "Que trouve-t-on sur le dépôt NIRD de la Forge ?",
+            "options": [
+                "Des jeux vidéo commerciaux piratés",
+                "Des scripts d'automatisation (Ansible) et de la documentation technique",
+                "Les notes des élèves",
+                "Des formulaires administratifs papier"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "On y trouve les 'recettes' informatiques (scripts) pour installer et configurer automatiquement des classes entières d'ordinateurs."
+        },
+        {
+            "id": 20,
+            "category": "Pédagogie",
+            "question": "Quelle compétence du CRCN (Cadre de Référence des Compétences Numériques) est travaillée avec NIRD ?",
+            "options": [
+                "Protection de l'environnement et santé",
+                "Programmation de drones de combat",
+                "Marketing digital",
+                "Cryptomonnaie"
+            ],
+            "correct_answer_index": 0,
+            "explanation": "La démarche touche directement au domaine 4 du CRCN et Pix : 'Protection et sécurité', incluant l'impact environnemental du numérique."
+        },
+        {
+            "id": 21,
+            "category": "Concept NIRD",
+            "question": "Que signifie le 'I' de Inclusif dans NIRD ?",
+            "options": [
+                "Que le matériel est réservé aux experts",
+                "Que le numérique doit être accessible à tous, y compris aux élèves en situation de handicap ou défavorisés",
+                "Que l'Internet est rapide",
+                "Que l'Informatique est Intelligente"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "L'inclusion signifie fournir du matériel accessible (logiciels adaptés DYS, coût réduit pour les familles) pour réduire la fracture numérique."
+        },
+        {
+            "id": 22,
+            "category": "Technique",
+            "question": "Qu'est-ce que 'Ventoy' souvent utilisé dans les ateliers NIRD ?",
+            "options": [
+                "Un type de tournevis",
+                "Un outil libre pour créer une clé USB de démarrage multisystème",
+                "Une marque de PC",
+                "Un réseau social"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "Ventoy permet de mettre plusieurs ISO (Linux, Windows, outils de dépannage) sur une seule clé USB sans avoir à la formater à chaque fois."
+        },
+        {
+            "id": 23,
+            "category": "Souveraineté",
+            "question": "Pourquoi la souveraineté numérique est-elle importante pour l'école ?",
+            "options": [
+                "Pour faire joli",
+                "Pour que les données des élèves et les choix techniques ne dépendent pas de sociétés étrangères privées",
+                "Pour interdire l'anglais",
+                "Pour payer plus cher"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "La souveraineté garantit l'indépendance de l'école publique : elle choisit ses outils et protège ses données sans pression commerciale extérieure."
+        },
+        {
+            "id": 24,
+            "category": "Mutualisation",
+            "question": "Si une académie développe une solution NIRD, que doit-elle faire idéalement ?",
+            "options": [
+                "La garder secrète pour être la meilleure",
+                "La vendre aux autres académies",
+                "La publier sur la Forge pour que d'autres académies puissent l'utiliser et l'améliorer",
+                "La supprimer après usage"
+            ],
+            "correct_answer_index": 2,
+            "explanation": "C'est le principe de mutualisation des dépenses publiques : payer une fois pour développer, et partager gratuitement avec tous les acteurs publics."
+        },
+        {
+            "id": 25,
+            "category": "Matériel",
+            "question": "Quelle est la durée de vie visée pour un ordinateur avec la démarche NIRD ?",
+            "options": [
+                "3 ans",
+                "5 ans",
+                "Au moins 10 ans, voire plus",
+                "2 ans"
+            ],
+            "correct_answer_index": 2,
+            "explanation": "Alors que la durée de vie moyenne en entreprise est souvent de 3 à 5 ans, NIRD vise à doubler cette durée grâce au logiciel libre."
+        },
+        {
+            "id": 26,
+            "category": "Linux",
+            "question": "Est-ce que Linux est compatible avec les formats de fichiers bureautiques standards ?",
+            "options": [
+                "Non, on ne peut rien ouvrir",
+                "Oui, via LibreOffice qui ouvre les .odt, .doc, .docx, .xls, etc.",
+                "Seulement les fichiers images",
+                "Oui, mais il faut payer"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "La suite LibreOffice (installée par défaut sur les distributions NIRD) assure une excellente compatibilité avec les documents scolaires."
+        },
+        {
+            "id": 27,
+            "category": "Accompagnement",
+            "question": "Comment convaincre une collectivité d'adopter NIRD ?",
+            "options": [
+                "En leur disant que c'est obligatoire",
+                "En montrant les économies budgétaires et la réduction du bilan carbone",
+                "En faisant grève",
+                "En cachant les vieux ordinateurs"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "L'argument économique (moins d'achat de neuf) et écologique (objectifs RSE de la collectivité) sont les leviers majeurs de l'accompagnement."
+        },
+        {
+            "id": 28,
+            "category": "Données",
+            "question": "Qu'est-ce que le RGPD ?",
+            "options": [
+                "Règlement Général sur la Protection des Données",
+                "Registre Global des PC Durables",
+                "Réseau de Gestion Publique Durable",
+                "Réparation Générale Par Démonalisations"
+            ],
+            "correct_answer_index": 0,
+            "explanation": "C'est la loi européenne qui protège la vie privée. Les outils Libres et la Forge sont généralement plus respectueux du RGPD que les outils GAFAM."
+        },
+        {
+            "id": 29,
+            "category": "Outils",
+            "question": "Quel outil de déploiement permet de cloner un PC modèle sur 30 autres via le réseau ?",
+            "options": [
+                "Photocopieuse",
+                "FOG Project ou Clonezilla",
+                "WinZip",
+                "Paint"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "Ces outils open source permettent de déployer une image disque (le système configuré) sur tout un parc informatique en quelques minutes via le réseau."
+        },
+        {
+            "id": 30,
+            "category": "Co-construction",
+            "question": "Qui peut contribuer à la démarche NIRD ?",
+            "options": [
+                "Seulement les ingénieurs",
+                "Les enseignants, les référents numériques, les agents de maintenance et les élèves",
+                "Seulement le ministre",
+                "Les robots"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "C'est une démarche participative. Un élève peut aider à réparer, un prof peut créer un tutoriel, un technicien peut améliorer un script."
+        },
+        {
+            "id": 31,
+            "category": "Logiciel Libre",
+            "question": "Quelle est la différence entre un logiciel libre et un logiciel gratuit (freeware) ?",
+            "options": [
+                "C'est la même chose",
+                "Le logiciel libre offre accès au code source et le droit de le modifier, le freeware est juste gratuit",
+                "Le logiciel libre est payant",
+                "Le freeware est open source"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "La liberté (d'étudier et modifier) est plus importante que la gratuité dans la philosophie des communs numériques."
+        },
+        {
+            "id": 32,
+            "category": "Avenir",
+            "question": "Quel est l'objectif ultime de NIRD pour l'éducation ?",
+            "options": [
+                "Que chaque élève ait 3 tablettes",
+                "Construire une école numérique résiliente, sobre et émancipatrice",
+                "Supprimer l'informatique à l'école",
+                "Avoir les ordinateurs les plus puissants du monde"
+            ],
+            "correct_answer_index": 1,
+            "explanation": "L'objectif n'est pas la performance pure, mais la résilience (durer dans le temps) et l'émancipation (comprendre et maîtriser l'outil)."
+        }
+    ]
+}

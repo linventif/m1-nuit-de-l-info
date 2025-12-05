@@ -10,7 +10,7 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
  */
 export const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, gameType } = req.body;
 
     // Validation
     if (!name || !email || !password) {
@@ -20,6 +20,9 @@ export const register = async (req, res) => {
     if (password.length < 6) {
       return res.status(400).json({ error: 'Password must be at least 6 characters long' });
     }
+
+    // Determine game type (default to 'classic' if not provided)
+    const passwordGameType = gameType || 'classic';
 
     // Check if user already exists
     const existingUser = await User.findOne({ where: { email } });
@@ -32,11 +35,11 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create user
+    // Create user with password as JSON object using the specified gameType
     const user = await User.create({
       name,
       email,
-      password: hashedPassword,
+      password: { [passwordGameType]: hashedPassword },
       salt,
       role: 'user',
     });
@@ -89,15 +92,37 @@ export const login = async (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    // Verify password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    // Verify password - check against all password hashes in JSON object
+    let isPasswordValid = false;
+    let matchedGameType = null;
+
+    // Handle both JSON object and legacy string format
+    if (typeof user.password === 'string') {
+      // Legacy format: single password string
+      isPasswordValid = await bcrypt.compare(password, user.password);
+      matchedGameType = 'classic';
+    } else {
+      // New format: JSON object with multiple game passwords
+      const passwordObject = user.password;
+      
+      // Try to match password against any hash in the object
+      for (const [gameType, hashedPassword] of Object.entries(passwordObject)) {
+        const isValid = await bcrypt.compare(password, hashedPassword);
+        if (isValid) {
+          isPasswordValid = true;
+          matchedGameType = gameType;
+          break; // Stop checking once we find a match
+        }
+      }
+    }
+
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role, gameType: matchedGameType },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
@@ -113,6 +138,7 @@ export const login = async (req, res) => {
         createdAt: user.createdAt,
       },
       token,
+      gameType: matchedGameType,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

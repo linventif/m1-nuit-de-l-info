@@ -5,6 +5,10 @@ function Login() {
         console.log("Game 1 toggled");
     }
 
+    const toggleGame2 = () => {
+        console.log("Game 2 toggled");
+    }
+
     const login = async () => {
         console.log("Login attempted");
         const loginData = {
@@ -49,6 +53,9 @@ function Login() {
                     <hr className="my-4 border-gray-300" />
                     <div className="flex justify-center mb-4">
                         <div className="w-6 h-6 bg-purple-400 cursor-pointer rounded" onclick={() => toggleGame1()}></div>
+                    </div>
+                    <div className="flex justify-center mb-4">
+                        <div className="w-6 h-6 bg-purple-400 cursor-pointer rounded" onclick={() => toggleGame2()}></div>
                     </div>
                     <div className="flex items justify-center">
                         <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick={() => login()}>

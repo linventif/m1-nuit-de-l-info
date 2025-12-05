@@ -19,9 +19,37 @@ function Navbar() {
   const isHome = () => location.pathname === "/";
   const [isLoggedIn, setIsLoggedIn] = createSignal(false);
 
-  createEffect(() => {
+  // Fonction pour vérifier le token
+  const checkToken = () => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
+  };
+
+  // Vérifier le token au montage et écouter les changements
+  createEffect(() => {
+    checkToken();
+    
+    // Écouter les événements de changement du localStorage
+    const handleStorageChange = (e) => {
+      if (e.key === "token" || e.key === null) {
+        checkToken();
+      }
+    };
+    
+    // Écouter les événements storage (pour les changements depuis d'autres onglets)
+    window.addEventListener("storage", handleStorageChange);
+    
+    // Écouter les événements personnalisés (pour les changements dans le même onglet)
+    window.addEventListener("tokenChanged", checkToken);
+    
+    // Vérifier périodiquement (fallback)
+    const interval = setInterval(checkToken, 500);
+    
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("tokenChanged", checkToken);
+      clearInterval(interval);
+    };
   });
 
   const handleLogout = async () => {
@@ -29,6 +57,8 @@ function Navbar() {
       await fetch("/api/auth/logout", { method: "POST" });
       localStorage.removeItem("token");
       setIsLoggedIn(false);
+      // Déclencher un événement personnalisé pour notifier les autres composants
+      window.dispatchEvent(new Event("tokenChanged"));
     } catch (err) {
       console.error("Error al hacer logout:", err);
     }
@@ -46,8 +76,8 @@ function Navbar() {
         )}
       </div>
       <div className="flex flex-direction-row">
-        {localStorage.getItem("token") ? (
-          <A href="/users" class="btn btn-ghost">Profil</A>
+        {isLoggedIn() ? (
+          <A href="/profile" class="btn btn-ghost">Profil</A>
         ) : (
           <A href="/login" class="btn btn-ghost">Se connecter</A>
         )}

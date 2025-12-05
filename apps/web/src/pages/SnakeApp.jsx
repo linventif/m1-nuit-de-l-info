@@ -3,6 +3,7 @@ import { Dynamic } from "solid-js/web";
 
 const WIDTH = 800;
 const HEIGHT = 600;
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 // ======================================================
 // Composant racine : sélection des modes + cheat code
@@ -430,6 +431,65 @@ function AbsoluteSnake() {
 
   let canvasRef;
 
+  // Fonction pour sauvegarder le score si supérieur
+  const saveScoreIfBetter = async (currentScore) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.log('Pas de token, score non sauvegardé');
+        return;
+      }
+
+      // Récupérer l'ID de l'utilisateur
+      const userResponse = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!userResponse.ok) {
+        console.log('Utilisateur non authentifié, score non sauvegardé');
+        return;
+      }
+
+      const userData = await userResponse.json();
+      const userId = userData.id;
+
+      // Récupérer le score actuel pour le jeu "absolute_snake"
+      const scoresResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`);
+      if (scoresResponse.ok) {
+        const scores = await scoresResponse.json();
+        const absoluteSnakeScore = scores.find((s) => s.game_type === 'absolute_snake');
+
+        // Si un score existe et qu'il est supérieur ou égal, ne pas sauvegarder
+        if (absoluteSnakeScore && absoluteSnakeScore.score >= currentScore) {
+          console.log(`Score actuel (${absoluteSnakeScore.score}) >= nouveau score (${currentScore}), non sauvegardé`);
+          return;
+        }
+      }
+
+      // Sauvegarder le score (créer ou mettre à jour)
+      const saveResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          score: currentScore,
+          game_type: 'absolute_snake',
+        }),
+      });
+
+      if (saveResponse.ok) {
+        console.log(`Score sauvegardé avec succès: ${currentScore}`);
+      } else {
+        console.error('Erreur lors de la sauvegarde du score');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde du score:', error);
+    }
+  };
+
   onMount(() => {
     const canvas = canvasRef;
     if (!canvas) return;
@@ -590,6 +650,7 @@ function AbsoluteSnake() {
       if (score >= WIN_SCORE) {
         gameOver = true;
         gameWon = true;
+        saveScoreIfBetter(score);
       }
     };
 
@@ -649,6 +710,7 @@ function AbsoluteSnake() {
       ) {
         gameOver = true;
         gameWon = false;
+        saveScoreIfBetter(score);
         return;
       }
 
@@ -661,6 +723,7 @@ function AbsoluteSnake() {
         if (d < HEAD_RADIUS * 1.1) {
           gameOver = true;
           gameWon = false;
+          saveScoreIfBetter(score);
           return;
         }
       }
@@ -1052,6 +1115,65 @@ function ClassicSnake() {
 
   let canvasRef;
 
+  // Fonction pour sauvegarder le score si supérieur
+  const saveScoreIfBetter = async (currentScore) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.log('Pas de token, score non sauvegardé');
+        return;
+      }
+
+      // Récupérer l'ID de l'utilisateur
+      const userResponse = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!userResponse.ok) {
+        console.log('Utilisateur non authentifié, score non sauvegardé');
+        return;
+      }
+
+      const userData = await userResponse.json();
+      const userId = userData.id;
+
+      // Récupérer le score actuel pour le jeu "snake_classic"
+      const scoresResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`);
+      if (scoresResponse.ok) {
+        const scores = await scoresResponse.json();
+        const classicScore = scores.find((s) => s.game_type === 'snake_classic');
+
+        // Si un score existe et qu'il est supérieur ou égal, ne pas sauvegarder
+        if (classicScore && classicScore.score >= currentScore) {
+          console.log(`Score actuel (${classicScore.score}) >= nouveau score (${currentScore}), non sauvegardé`);
+          return;
+        }
+      }
+
+      // Sauvegarder le score (créer ou mettre à jour)
+      const saveResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          score: currentScore,
+          game_type: 'snake_classic',
+        }),
+      });
+
+      if (saveResponse.ok) {
+        console.log(`Score sauvegardé avec succès: ${currentScore}`);
+      } else {
+        console.error('Erreur lors de la sauvegarde du score');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde du score:', error);
+    }
+  };
+
   onMount(() => {
     const canvas = canvasRef;
     if (!canvas) return;
@@ -1210,11 +1332,13 @@ function ClassicSnake() {
         newHead.y >= ROWS
       ) {
         gameOver = true;
+        saveScoreIfBetter(snake.length);
         return;
       }
 
       if (snake.some((s) => s.x === newHead.x && s.y === newHead.y)) {
         gameOver = true;
+        saveScoreIfBetter(snake.length);
         return;
       }
 
@@ -1245,6 +1369,7 @@ function ClassicSnake() {
       if (snake.length >= totalCells) {
         gameOver = true;
         gameWon = true;
+        saveScoreIfBetter(snake.length);
       }
     };
 
@@ -1463,6 +1588,65 @@ function ObstaclesSnake() {
   const ENEMY_INTERVAL = 30;
 
   let canvasRef;
+
+  // Fonction pour sauvegarder le score si supérieur
+  const saveScoreIfBetter = async (currentScore) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.log('Pas de token, score non sauvegardé');
+        return;
+      }
+
+      // Récupérer l'ID de l'utilisateur
+      const userResponse = await fetch(`${API_BASE_URL}/api/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!userResponse.ok) {
+        console.log('Utilisateur non authentifié, score non sauvegardé');
+        return;
+      }
+
+      const userData = await userResponse.json();
+      const userId = userData.id;
+
+      // Récupérer le score actuel pour le jeu "snake_obstacles"
+      const scoresResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`);
+      if (scoresResponse.ok) {
+        const scores = await scoresResponse.json();
+        const obstaclesScore = scores.find((s) => s.game_type === 'snake_obstacles');
+
+        // Si un score existe et qu'il est supérieur ou égal, ne pas sauvegarder
+        if (obstaclesScore && obstaclesScore.score >= currentScore) {
+          console.log(`Score actuel (${obstaclesScore.score}) >= nouveau score (${currentScore}), non sauvegardé`);
+          return;
+        }
+      }
+
+      // Sauvegarder le score (créer ou mettre à jour)
+      const saveResponse = await fetch(`${API_BASE_URL}/api/scores/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          score: currentScore,
+          game_type: 'snake_obstacles',
+        }),
+      });
+
+      if (saveResponse.ok) {
+        console.log(`Score sauvegardé avec succès: ${currentScore}`);
+      } else {
+        console.error('Erreur lors de la sauvegarde du score');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde du score:', error);
+    }
+  };
 
   onMount(() => {
     const canvas = canvasRef;
@@ -1754,16 +1938,19 @@ function ObstaclesSnake() {
         newHead.y >= ROWS
       ) {
         gameOver = true;
+        saveScoreIfBetter(snake.length);
         return;
       }
 
       if (isObstacle(newHead.x, newHead.y)) {
         gameOver = true;
+        saveScoreIfBetter(snake.length);
         return;
       }
 
       if (snake.some((s) => s.x === newHead.x && s.y === newHead.y)) {
         gameOver = true;
+        saveScoreIfBetter(snake.length);
         return;
       }
 
@@ -1794,6 +1981,7 @@ function ObstaclesSnake() {
       if (snake.length >= totalCells) {
         gameOver = true;
         gameWon = true;
+        saveScoreIfBetter(snake.length);
       }
     };
 

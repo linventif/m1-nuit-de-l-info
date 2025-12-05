@@ -90,15 +90,17 @@ console.log("Données de connexion:", loginData);
       body: JSON.stringify(loginData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          window.location.href = "/";
-        } else {
-          window.alert("Échec de la connexion: " + data.message);
-          window.location.reload();
-        }
-      });
+          .then((data) => {
+            if (data.token) {
+              localStorage.setItem("token", data.token);
+              // Déclencher un événement pour notifier la Navbar
+              window.dispatchEvent(new Event('tokenChanged'));
+              window.location.href = "/";
+            } else {
+              window.alert("Échec de la connexion: " + data.message);
+              window.location.reload();
+            }
+          });
   };
 
   return (
@@ -253,7 +255,7 @@ console.log("Données de connexion:", loginData);
               type="button"
               onClick={handleSignIn}
             >
-              Sign In
+              Se connecter
             </button>
           </div>
         </form>

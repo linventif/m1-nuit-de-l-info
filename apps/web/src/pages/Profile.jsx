@@ -224,6 +224,9 @@ function Profile() {
       // Supprimer le token du localStorage
       localStorage.removeItem('token');
       
+      // Déclencher un événement pour notifier la Navbar
+      window.dispatchEvent(new Event('tokenChanged'));
+      
       // Rediriger vers la page de login
       navigate('/login');
     } catch (err) {

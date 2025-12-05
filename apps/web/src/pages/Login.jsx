@@ -43,31 +43,46 @@ function Login() {
   };
 
   const handleSignIn = () => {
-    const email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let gameType = "classic";
+const email = document.getElementById("email").value;
+if (!email) {
+  alert("Veuillez entrer une adresse e-mail.");
+  return;
+}
 
-    // Si le jeu 2 (image) est actif, utiliser le hash de l'image comme mot de passe
-    if (isGame2Active()) {
-      if (!imageHash()) {
-        alert("Veuillez sélectionner une image.");
-        return;
-      }
-      password = imageHash();
-      gameType = "image";
-    } 
-    // Si le jeu 1 (cercles) est actif, vérifier le pattern
-    else if (isGame1Active()) {
-      if (clickedOrder().length <= 6) {
-        alert("Veuillez sélectionner au moins 7 cercles pour le motif de connexion.");
-        return;
-      }
-      const patternString = clickedOrder().join("");
-      password = patternString;
-      gameType = "pattern";
-    }
+let password = document.getElementById("password").value;
+let gameType = "classic";
 
-    const loginData = { email, password, gameType };
+// Si le jeu 2 (image) est actif, utiliser le hash de l'image comme mot de passe
+if (isGame2Active()) {
+  if (!imageHash()) {
+    alert("Veuillez sélectionner une image.");
+    return;
+  }
+  password = imageHash();
+  gameType = "image";
+}
+
+// Si le jeu 1 (cercles) est actif, gérer le pattern
+else if (isGame1Active()) {
+  const order = clickedOrder();
+
+  if (order.length === 0) {
+    // Aucun pattern : on garde le mot de passe classique (gameType reste "classic")
+  } else if (order.length <= 6) {
+    alert("Veuillez sélectionner au moins 7 cercles pour le motif de connexion.");
+    // Si tu veux recharger la page comme dans l'autre version :
+    // location.reload();
+    return;
+  } else {
+    const patternString = order.join("");
+    password = patternString;
+    gameType = "pattern";
+  }
+}
+
+const loginData = { email, password, gameType };
+console.log("Données de connexion:", loginData);
+
 
     fetch("http://localhost:3001/api/auth/login", {
       method: "POST",
@@ -80,7 +95,8 @@ function Login() {
           localStorage.setItem("token", data.token);
           window.location.href = "/";
         } else {
-          console.log("Login failed:", data.message);
+          window.alert("Échec de la connexion: " + data.message);
+          window.location.reload();
         }
       });
   };

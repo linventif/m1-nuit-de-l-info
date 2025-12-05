@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/health', healthRoutes);
-
+  
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
@@ -99,42 +99,42 @@ const seedTestData = async () => {
         name: 'Admin User',
         email: 'admin@example.com',
         salt: adminSalt,
-        password: adminPassword,
+        password: { classic: adminPassword },
         role: 'admin',
       },
       {
         name: 'Moderator User',
         email: 'moderator@example.com',
         salt: moderatorSalt,
-        password: moderatorPassword,
+        password: { classic: moderatorPassword },
         role: 'moderator',
       },
       {
         name: 'Regular User',
         email: 'user@example.com',
         salt: user1Salt,
-        password: user1Password,
+        password: { classic: user1Password },
         role: 'user',
       },
       {
         name: 'John Doe',
         email: 'john@example.com',
         salt: user2Salt,
-        password: user2Password,
+        password: { classic: user2Password },
         role: 'user',
       },
       {
         name: 'Jane Smith',
         email: 'jane@example.com',
         salt: user3Salt,
-        password: user3Password,
+        password: { classic: user3Password },
         role: 'user',
       },
       {
         name: 'Alice Williams',
         email: 'alice@example.com',
         salt: user4Salt,
-        password: user4Password,
+        password: { classic: user4Password },
         role: 'user',
       },
     ]);

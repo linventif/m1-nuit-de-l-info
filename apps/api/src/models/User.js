@@ -33,12 +33,18 @@ export const User = sequelize.define(
       },
     },
     password: {
+<<<<<<< HEAD
       type: DataTypes.STRING,
       allowNull: false,
       unique: false,
       validate: {
         len: [60, 60],
       },
+=======
+      type: DataTypes.JSON,
+      allowNull: false,
+      unique: false,
+>>>>>>> origin/main
     },
     role: {
       type: DataTypes.STRING,

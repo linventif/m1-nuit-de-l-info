@@ -1,4 +1,4 @@
-import { createSignal, Show, onMount, onCleanup } from "solid-js";
+import { createSignal, Show, onMount, onCleanup, createEffect } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
 const WIDTH = 800;
@@ -11,6 +11,20 @@ const HEIGHT = 600;
 function SnakeApp() {
   const [selectedModeId, setSelectedModeId] = createSignal(null);
   const [absoluteUnlocked, setAbsoluteUnlocked] = createSignal(false);
+
+  //   // Empêche le scroll quand un jeu est lancé
+  // createEffect(() => {
+  //   if (selectedModeId()) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "";
+  //   }
+  // });
+
+  // // Au cas où le composant est démonté, on rétablit le scroll
+  // onCleanup(() => {
+  //   document.body.style.overflow = "";
+  // });
 
   const [showCheatInput, setShowCheatInput] = createSignal(false);
   const [cheatInput, setCheatInput] = createSignal("");
@@ -753,7 +767,9 @@ function AbsoluteSnake() {
       }
 
       if (gameOver) return;
-
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
+      }
       switch (e.key) {
         case "ArrowLeft":
           leftPressed = true;
@@ -1135,7 +1151,9 @@ function ClassicSnake() {
       }
 
       if (gameOver) return;
-
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
+      }
       switch (e.key) {
         case "ArrowUp":
         case "w":
@@ -1677,7 +1695,9 @@ function ObstaclesSnake() {
       }
 
       if (gameOver) return;
-
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
+      }
       switch (e.key) {
         case "ArrowUp":
         case "w":

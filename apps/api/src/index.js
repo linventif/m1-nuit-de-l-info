@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/health', healthRoutes);
-
+  
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
